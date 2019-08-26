@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Elena K." />
+
+
+<title>Running Jupyter Notebook on GCloud</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h2 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h3 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h4 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h5 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h6 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">noircir</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="DataScience.html">Data Science</a>
+</li>
+<li>
+  <a href="CloudComputing.html">Cloud Computing</a>
+</li>
+<li>
+  <a href="About.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="contact.html">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/noircir">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Running Jupyter Notebook on GCloud</h1>
+<h4 class="author">Elena K.</h4>
+<h4 class="date">25/08/2019</h4>
+
+</div>
+
+
+<div id="jupyter-notebook-and-rstudio-on-the-cloud" class="section level2">
+<h2>Jupyter Notebook and RStudio on the Cloud</h2>
+<div id="setting-up-the-cloud-instance" class="section level3">
+<h3>Setting up the Cloud instance</h3>
+<p>Set up is pretty straightforward. Follow the quickstart; here are my settings:</p>
+<ul>
+<li>Instance size: I chose the smallest to start, but you can resize at any time.</li>
+<li>Operating System: I chose Debian for it’s stability.</li>
+<li>Hard disk: I highly recommend a 10Gbyte SSD drive:
+<ul>
+<li>SSD for speed.</li>
+<li>10Gbyte to save money. You can always make it larger later, but not smaller.</li>
+</ul></li>
+<li>Firewall: Allow HTTP and HTTPS connections to use <code>curl</code> and <code>wget</code>.</li>
+<li><strong>If you access GCloud with an in-browser terminal and run across an error “Insufficient authentication scopes”, set Access scopes to “Allow full access to all Cloud APIs”. (During instance creation, or edit later, whith stopped instance.)</strong></li>
+</ul>
+<p><img src="assets/allowCloudAPIs.png" /></p>
+<ul>
+<li>Once you have the instance running, connect to it using <strong><a href="https://cloud.google.com/compute/docs/instances/connecting-to-instance#sshingcloud">gcloud tools</a></strong>.</li>
+</ul>
+</div>
+<div id="setting-up-a-jupyter-notebook" class="section level3">
+<h3>Setting up a Jupyter Notebook</h3>
+<p>Follow the jupyter installation instructions. If you decide to install the Anaconda distribution like I did, here are a few notes:</p>
+<div id="on-vm-terminal" class="section level5">
+<h5>On VM terminal:</h5>
+<p>Copy the downloader path, and use <code>curl</code> to download the latest release. <strong><a href="https://www.digitalocean.com/community/tutorials/how-to-install-anaconda-on-ubuntu-18-04-quickstart">instructions on how to download and install Anaconda from command line</a></strong></p>
+<p>If Anaconda installation is interrupted with this error: <strong>“bunzip2: command not found”</strong>, run:</p>
+<pre><code>sudo apt-get install bzip2 </code></pre>
+<p>Anaconda adds a line to your .bashrc exporting the correct path to your distribution. Make sure it is correct (it looks like PATH=“/home/username/path/to/anaconda3/bin:$PATH”) Source you bashrc source ~/.bashrc and ensure the latest version of conda is installed by entering conda -V. You can now start your jupyter notebook with:</p>
+<pre><code>jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser </code></pre>
+</div>
+<div id="on-your-local-machines-terminal" class="section level5">
+<h5>On your local machine’s terminal:</h5>
+<p>Install (if you haven’t done so yet) <strong><a href="https://cloud.google.com/sdk/docs/#install_the_latest_cloud_tools_version_cloudsdk_current_version">GCloud SDK</a></strong></p>
+<p>To access your jupyter notebook via the browser, you’ll need to forward the 8888 port to your local machine using ssh. ssh flags can be passed via gcloud:</p>
+<pre><code>path-to/google-cloud-sdk/bin/gcloud compute ssh username@instance-3 --ssh-flag=&quot;-L localhost:8888:0.0.0.0:8888&quot; </code></pre>
+<p>(from now on the <code>gcloud</code> command will imply the path to the command: <code>path-to/google-cloud-sdk/bin</code>)</p>
+<p>You should now be able to navigate the browser on your local machine to <a href="http://127.0.0.1:8888/" class="uri">http://127.0.0.1:8888/</a> and see the jupyter interface.</p>
+</div>
+</div>
+<div id="exchanging-files-between-local-machine-vm-and-google-cloud-bucket" class="section level3">
+<h3>Exchanging Files Between Local Machine, VM, and Google Cloud Bucket</h3>
+<p><strong><a href="https://cloud.google.com/compute/docs/instances/transfer-files">Transferring Files to Instances</a></strong></p>
+<div id="with-scp" class="section level5">
+<h5>With <strong>SCP</strong></h5>
+<p>For example, upload all files from a local directory:</p>
+<pre><code>gcloud compute scp path-to-local-directory/* username@instance-3:path-to-instance-directory</code></pre>
+</div>
+<div id="with-gsutil" class="section level5">
+<h5>With <strong><code>gsutil</code></strong></h5>
+<p>Create a bucket <strong><a href="https://cloud.google.com/compute/docs/instances/transfer-files#gcstransfer">Cloud Storage</a></strong> . Upload local files to the bucket (on local machine terminal):</p>
+<pre><code>./bin/gsutil cp ~/dir/* gs://jupyter_bucket_555</code></pre>
+<p>Copy files from bucket to the instance (on VM terminal):</p>
+<pre><code>gsutil cp -r gs://jupyter_bucket_555 .</code></pre>
+<p>From instance to the bucket:</p>
+<pre><code>gsutil cp -r ~/dir gs://jupyter_bucket_555</code></pre>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

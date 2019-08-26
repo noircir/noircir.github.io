@@ -1,0 +1,20 @@
+name: "noircir"
+output_dir: "."
+navbar:
+  title: "noircir"
+  left:
+    - text: "Data Science"
+      href: DataScience.html
+    - text: "Cloud Computing"
+      href: CloudComputing.html
+    - text: "About"
+      href: About.html
+  right:
+    - icon: fa-envelope fa-lg
+      href: contact.html
+    - icon: fa-github fa-lg
+      href: http://github.com/noircir
+output:
+  html_document:
+    theme: paper
+    css: 'styles.css'
