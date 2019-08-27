@@ -48,11 +48,11 @@ You can now start your jupyter notebook with:
 
 Install (if you haven't done so yet) __[GCloud SDK](https://cloud.google.com/sdk/docs/#install_the_latest_cloud_tools_version_cloudsdk_current_version)__
 
-To access your jupyter notebook via the browser, you'll need to forward the 8888 port to your local machine using ssh. ssh flags can be passed via gcloud: 
+To access your jupyter notebook via  browser, you'll need to forward port 8888 to your local machine using ssh. ssh flags can be passed via gcloud: 
 
-    path-to/google-cloud-sdk/bin/gcloud compute ssh username@instance-3 --ssh-flag="-L localhost:8888:0.0.0.0:8888" 
+    path-to/google-cloud-sdk/bin/gcloud compute ssh username@instance_name --ssh-flag="-L localhost:8888:0.0.0.0:8888" 
     
-(from now on the `gcloud` command will imply the path to the command: `path-to/google-cloud-sdk/bin`)
+(from now on the `gcloud` command will imply the path to the command: `path-to/google-cloud-sdk/bin/gcloud`)
 
 You should now be able to navigate the browser on your local machine to http://127.0.0.1:8888/ and see the jupyter interface.
 
@@ -64,21 +64,21 @@ __[Transferring Files to Instances](https://cloud.google.com/compute/docs/instan
 
 For example, upload all files from a local directory:
 
-    gcloud compute scp path-to-local-directory/* username@instance-3:path-to-instance-directory
+    gcloud compute scp path-to-local-directory/* username@instance_name:path-to-instance-directory
 
 ##### With **`gsutil`** 
 
-Create a bucket __[Cloud Storage](https://cloud.google.com/compute/docs/instances/transfer-files#gcstransfer)__ . Upload local files to the bucket (on local machine terminal): 
+Create a bucket on __[Cloud Storage](https://cloud.google.com/compute/docs/instances/transfer-files#gcstransfer)__ . Upload local files to the bucket (on local machine's terminal): 
 
-    ./bin/gsutil cp ~/dir/* gs://jupyter_bucket_555
+    ./bin/gsutil cp ~/dir/* gs://my_bucket_555
     
-Copy files from bucket to the instance (on VM terminal):
+Copy files from the bucket to the instance (on VM terminal) (`-r` flag for directories):
 
-    gsutil cp -r gs://jupyter_bucket_555 .
+    gsutil cp -r gs://my_bucket_555 .
 
-From instance to the bucket:
+From the instance to the bucket:
     
-    gsutil cp -r ~/dir gs://jupyter_bucket_555
+    gsutil cp -r ~/dir gs://my_bucket_555
 
 
 

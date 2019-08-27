@@ -352,9 +352,9 @@ $(document).ready(function () {
 <div id="on-your-local-machines-terminal" class="section level5">
 <h5>On your local machine’s terminal:</h5>
 <p>Install (if you haven’t done so yet) <strong><a href="https://cloud.google.com/sdk/docs/#install_the_latest_cloud_tools_version_cloudsdk_current_version">GCloud SDK</a></strong></p>
-<p>To access your jupyter notebook via the browser, you’ll need to forward the 8888 port to your local machine using ssh. ssh flags can be passed via gcloud:</p>
-<pre><code>path-to/google-cloud-sdk/bin/gcloud compute ssh username@instance-3 --ssh-flag=&quot;-L localhost:8888:0.0.0.0:8888&quot; </code></pre>
-<p>(from now on the <code>gcloud</code> command will imply the path to the command: <code>path-to/google-cloud-sdk/bin</code>)</p>
+<p>To access your jupyter notebook via browser, you’ll need to forward port 8888 to your local machine using ssh. ssh flags can be passed via gcloud:</p>
+<pre><code>path-to/google-cloud-sdk/bin/gcloud compute ssh username@instance_name --ssh-flag=&quot;-L localhost:8888:0.0.0.0:8888&quot; </code></pre>
+<p>(from now on the <code>gcloud</code> command will imply the path to the command: <code>path-to/google-cloud-sdk/bin/gcloud</code>)</p>
 <p>You should now be able to navigate the browser on your local machine to <a href="http://127.0.0.1:8888/" class="uri">http://127.0.0.1:8888/</a> and see the jupyter interface.</p>
 </div>
 </div>
@@ -364,16 +364,16 @@ $(document).ready(function () {
 <div id="with-scp" class="section level5">
 <h5>With <strong>SCP</strong></h5>
 <p>For example, upload all files from a local directory:</p>
-<pre><code>gcloud compute scp path-to-local-directory/* username@instance-3:path-to-instance-directory</code></pre>
+<pre><code>gcloud compute scp path-to-local-directory/* username@instance_name:path-to-instance-directory</code></pre>
 </div>
 <div id="with-gsutil" class="section level5">
 <h5>With <strong><code>gsutil</code></strong></h5>
-<p>Create a bucket <strong><a href="https://cloud.google.com/compute/docs/instances/transfer-files#gcstransfer">Cloud Storage</a></strong> . Upload local files to the bucket (on local machine terminal):</p>
-<pre><code>./bin/gsutil cp ~/dir/* gs://jupyter_bucket_555</code></pre>
-<p>Copy files from bucket to the instance (on VM terminal):</p>
-<pre><code>gsutil cp -r gs://jupyter_bucket_555 .</code></pre>
-<p>From instance to the bucket:</p>
-<pre><code>gsutil cp -r ~/dir gs://jupyter_bucket_555</code></pre>
+<p>Create a bucket on <strong><a href="https://cloud.google.com/compute/docs/instances/transfer-files#gcstransfer">Cloud Storage</a></strong> . Upload local files to the bucket (on local machine’s terminal):</p>
+<pre><code>./bin/gsutil cp ~/dir/* gs://my_bucket_555</code></pre>
+<p>Copy files from the bucket to the instance (on VM terminal) (<code>-r</code> flag for directories):</p>
+<pre><code>gsutil cp -r gs://my_bucket_555 .</code></pre>
+<p>From the instance to the bucket:</p>
+<pre><code>gsutil cp -r ~/dir gs://my_bucket_555</code></pre>
 </div>
 </div>
 </div>
