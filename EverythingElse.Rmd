@@ -7,4 +7,4 @@
 <h1>This is Cloud Computing Page</h1>
 
 
-[Running Jupyter Notebook on Google Cloud from local laptop/PC](./Jupyter_Notebook_on_GCloud.html)
+[Anaconda (conda) and virtualenv on Mac](./conda_virtualenv.html)

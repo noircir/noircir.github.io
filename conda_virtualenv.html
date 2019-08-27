@@ -11,8 +11,9 @@
 
 
 
+<meta name="date" content="2019-05-26" />
 
-<title>CloudComputing.utf8.md</title>
+<title>Anaconda (conda) and virtualenv on Mac</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -310,15 +311,48 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">Anaconda (conda) and virtualenv on Mac</h1>
+<h4 class="date">2019-05-26</h4>
 
 </div>
 
 
-<p><link rel="stylesheet" href="styles.css" type="text/css"></p>
-<h1>
-This is Cloud Computing Page
-</h1>
-<p><a href="./Jupyter_Notebook_on_GCloud.html">Running Jupyter Notebook on Google Cloud from local laptop/PC</a></p>
+<h3>
+virtualenv and conda (Anaconda, Miniconda) compatibility
+</h3>
+<p>If you have Anaconda installed, then the usual <code>virtualenv</code> activation from the command line doesn’t work (bash doesn’t recognize <code>virtualenv</code> command). It is now done with conda. <code>conda -v</code> <code>conda update conda</code> <code>conda search &quot;^python$&quot;</code> ## optionally check available Python versions <code>conda create -n yourenvname</code></p>
+<p>You also can specify Python version of virtualenv:</p>
+<p>conda create -n yourenvname python=x.x anaconda</p>
+<p>Press <code>Y</code> to proceed. This will install the Python version and all the associated anaconda packaged libraries at <code>path_to_your_anaconda/anaconda3/envs/yourenvname</code>.</p>
+<p>How to activate, deactivate, and remove virtualenv on Mac (on Windows, don’t use the word <code>source</code>):</p>
+<p><code>conda info -e</code> <code>source activate yourenvname</code> <code>source deactivate  ## -&gt; deprecated. Use 'conda deactivate'</code> <code>conda remove -n yourenvname -all</code></p>
+<p>To see a list of all your environments, use this command:</p>
+<p><code>conda info -e</code></p>
+<p>More:</p>
+<p><a href="https://conda.io/projects/conda/en/latest/user-guide/getting-started.html#">Getting started with Conda</a></p>
+<p><a href="https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/20/conda/">Create virtual environments for python with conda</a></p>
+<p><a href="https://stackoverflow.com/questions/39964635/error-virtualenv-command-not-found-but-install-location-is-in-pythonpath?noredirect=1&amp;lq=1">Error “virtualenv : command not found” but install location is in PYTHONPATH</a></p>
+<h3>
+Jupyter notebook fails to start on Mac
+</h3>
+<p>If you see a response:</p>
+<p><code>-bash: command jupyter is not found</code></p>
+<p>it means that anaconda3 is not in your PATH. To fix:</p>
+<p><code>export PATH=~/anaconda3/bin:$PATH</code> <code>conda --version</code> <code>which jupyter</code> <code>which python</code></p>
+<h3>
+To check package versions:
+</h3>
+<p><code>import sklearn</code> <code>import numpy</code> <code>print(sklearn.__version__)</code> <code>print(numpy.__version__)</code></p>
+<h3>
+Install new packages into a given environmnt (instead of pip):
+</h3>
+<p>(insert comparison table here)</p>
+<p>Analog of <code>pip install &lt;package_name&gt;</code></p>
+<p><code>conda install &lt;package_name&gt;</code></p>
+<h3>
+Check if a package is installed in current environment:
+</h3>
+<p><code>conda list | grep &lt;package_name&gt;</code></p>
 
 
 
