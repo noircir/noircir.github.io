@@ -11,25 +11,28 @@ __[Big Data as a Service, get easily running a Cloudera Quickstart Image with Do
 
 __[How to get up and running with Cloudera’s Quickstart Docker Container](https://medium.com/@SnazzyHam/how-to-get-up-and-running-with-clouderas-quickstart-docker-container-732c04ed0280)__
 
-Create a project and a VM instance on GCP, with 7.5 GB memory and 20 GB disk (this is the absolute minimum!)
+##### 0. Preliminary Step: Create an Instance on Google Cloud
+Create a project and a VM instance on Google Cloud's __[Compute Engine](https://console.cloud.google.com/compute/)__, with 7.5 GB memory and 20 GB disk (this is the absolute minimum!)
 
 <img src="./assets/create_instance1.png">
 <img src="./assets/create_instance2.png">
 
 ##### 1. Connect with SSH
-From your local machine's terminal, connect to the instance with SSH. To see what flag values you need to use, use this trick: on the instances list screen, click on down-arrow next to "SSH".
+From your local machine's terminal, connect to the instance with SSH:
+
+    ./bin/gcloud compute --project "my-project-cdh-docker-251102" ssh --zone "us-central1-a" dryyellowpeas3@"instance-cdh" 
+    
+To see what flag values you need to use, use this trick: on the instances list screen, click on down-arrow next to "SSH".
 
 <img src="./assets/ssh_flags1.png">
 
-Choose "View gcloud command".
+Choose "View gcloud command". (This is not your SSH command. Here, you just consult with your flags' values.)
 
 <img src="./assets/ssh_flags2.png">
 
 If you have more than one Google account, insert also a username before the instance name.
-
-    ./bin/gcloud compute --project "my-project-cdh-docker-251102" ssh --zone "us-central1-a" dryyellowpeas3@"instance-cdh" 
     
-##### 2. Install Docker
+##### 2. Install Docker:
 
     curl -sSL https://get.docker.com/ | sh
     
@@ -91,8 +94,8 @@ After running the container, we are now inside the container's shell.
 
 While leaving the container running, open another terminal window on local machine, connect with ssh (command 1)
 
-<img src="./assets/hue1.png">
+<img src="./assets/hue1.png" style="width:50%; border:1px solid; margin-right: 20px" align="left">
 
 Username and password: cloudera/cloudera
 
-<img src="./assets/hue2.png">
+<img src="./assets/hue2.png" style="width:50%; border:1px solid; margin-right: 20px" align="left">

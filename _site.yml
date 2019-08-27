@@ -1,7 +1,7 @@
-name: "noircir"
+name: "noircir-name"
 output_dir: "."
 navbar:
-  title: "noircir"
+  title: "noircir-title"
   left:
     - text: "Data Science"
       href: DataScience.html
