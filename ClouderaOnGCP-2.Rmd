@@ -21,16 +21,16 @@ It is also possible to check port mapping on running docker container (explained
 
 ### 2. Open localhost:8777
 
-<img src="./assets/hue1.png">
+<img src="./assets/hue1.png" style="width:50%">
 
 Username and password: cloudera/cloudera
 
-<img src="./assets/hue2.png">
+<img src="./assets/hue2.png" style="width:50%">
 
 
 
 
-#### (Optional) How to check port mapping on running container
+### (Optional) How to check port mapping on running container
 
 While leaving the container running in one terminal, open another terminal on local machine, and connect with the same VM instance via ssh (command 1 in Part 1).
 
@@ -40,14 +40,14 @@ Check container's process id:
 
     sudo docker ps
     
-<img src="./assets/hue_setup1.png">
+<img src="./assets/hue_setup1.png" style="width:70%">
 
 Inspect the container with that id:
 
     sudo docker inspect <container_id>
 
-<img src="./assets/hue_setup2.png">
+<img src="./assets/hue_setup2.png" style="width:70%">
 
 Scroll down until "Network settings":
 
-<img src="./assets/hue_setup3.png">
+<img src="./assets/hue_setup3.png" style="width:50%">

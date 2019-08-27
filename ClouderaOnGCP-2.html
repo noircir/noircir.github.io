@@ -327,22 +327,22 @@ $(document).ready(function () {
 </div>
 <div id="open-localhost8777" class="section level3">
 <h3>2. Open localhost:8777</h3>
-<p><img src="assets/hue1.png"></p>
+<p><img src="assets/hue1.png" style="width:50%"></p>
 <p>Username and password: cloudera/cloudera</p>
-<p><img src="assets/hue2.png"></p>
-<div id="optional-how-to-check-port-mapping-on-running-container" class="section level4">
-<h4>(Optional) How to check port mapping on running container</h4>
+<p><img src="assets/hue2.png" style="width:50%"></p>
+</div>
+<div id="optional-how-to-check-port-mapping-on-running-container" class="section level3">
+<h3>(Optional) How to check port mapping on running container</h3>
 <p>While leaving the container running in one terminal, open another terminal on local machine, and connect with the same VM instance via ssh (command 1 in Part 1).</p>
 <pre><code>./bin/gcloud compute --project &quot;my-project-cdh-docker-251102&quot; ssh --zone &quot;us-central1-a&quot; dryyellowpeas3@&quot;instance-cdh&quot; </code></pre>
 <p>Check container’s process id:</p>
 <pre><code>sudo docker ps</code></pre>
-<p><img src="assets/hue_setup1.png"></p>
+<p><img src="assets/hue_setup1.png" style="width:70%"></p>
 <p>Inspect the container with that id:</p>
 <pre><code>sudo docker inspect &lt;container_id&gt;</code></pre>
-<p><img src="assets/hue_setup2.png"></p>
+<p><img src="assets/hue_setup2.png" style="width:70%"></p>
 <p>Scroll down until “Network settings”:</p>
-<p><img src="assets/hue_setup3.png"></p>
-</div>
+<p><img src="assets/hue_setup3.png" style="width:50%"></p>
 </div>
 </div>
 
