@@ -13,7 +13,7 @@
 <meta name="author" content="" />
 
 
-<title>Running Jupyter Notebook on GCloud</title>
+<title>Running Jupyter Notebook on Google Compute Engine</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -311,17 +311,16 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Running Jupyter Notebook on GCloud</h1>
+<h1 class="title toc-ignore">Running Jupyter Notebook on Google Compute Engine</h1>
 <h4 class="date">25/08/2019</h4>
 
 </div>
 
 
-<div id="jupyter-notebook-on-the-cloud" class="section level2">
-<h2>Jupyter Notebook on the Cloud</h2>
-<div id="setting-up-the-cloud-instance" class="section level3">
-<h3>Setting up the Cloud instance</h3>
-<p>Set up is pretty straightforward. Follow the <strong><a href="https://cloud.google.com/compute/docs/quickstart-linux">quickstart</a></strong>; here are my settings:</p>
+<p>(based on <strong><a href="https://alexanderwaldin.github.io/jupyter-notebook-rstudio-cloud.html">this</a></strong> and <strong><a href="https://stharrold.github.io/20151208-ipynb-on-gce-from-chrome.html#fn:lsof-kill">this</a></strong> blog posts)</p>
+<div id="setting-up-a-cloud-instance" class="section level3">
+<h3>Setting up a Cloud instance</h3>
+<p>Setup is pretty straightforward. Follow the <strong><a href="https://cloud.google.com/compute/docs/quickstart-linux">quickstart</a></strong>; here are my settings:</p>
 <ul>
 <li>Instance size: I chose the smallest to start, but you can <strong><a href="https://cloud.google.com/compute/docs/instances/changing-machine-type-of-stopped-instance">resize</a></strong> at any time.</li>
 <li>Operating System: I chose Debian for it’s stability.</li>
@@ -374,7 +373,6 @@ $(document).ready(function () {
 <pre><code>gsutil cp -r gs://my_bucket_555 .</code></pre>
 <p>From the instance to the bucket:</p>
 <pre><code>gsutil cp -r ~/dir gs://my_bucket_555</code></pre>
-</div>
 </div>
 </div>
 

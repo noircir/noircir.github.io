@@ -315,32 +315,80 @@ $(document).ready(function () {
 
 
 <p><link rel="stylesheet" href="styles.css" type="text/css"></p>
+<div id="running-cloudera-quickstart-image-v5.13-on-google-cloud-instance" class="section level2">
+<h2>Running Cloudera Quickstart Image v5.13 on Google Cloud instance</h2>
+<p>Inspired by these Medium articles: <br> <strong><a href="https://medium.com/@alipazaga07/big-data-as-a-service-get-easily-running-a-cloudera-quickstart-image-with-dockers-in-gcp-34d28aa7dad7">Big Data as a Service, get easily running a Cloudera Quickstart Image with Dockers in GCP</a></strong></p>
+<p><strong><a href="https://medium.com/@SnazzyHam/how-to-get-up-and-running-with-clouderas-quickstart-docker-container-732c04ed0280">How to get up and running with Cloudera’s Quickstart Docker Container</a></strong></p>
 <p>Create a project and a VM instance on GCP, with 7.5 GB memory and 20 GB disk (this is the absolute minimum!)</p>
 <p><img src="assets/create_instance1.png"> <img src="assets/create_instance2.png"></p>
-<p>Connect with SSH:</p>
+<div id="connect-with-ssh" class="section level5">
+<h5>1. Connect with SSH</h5>
+<p>From your local machine’s terminal, connect to the instance with SSH. To see what flag values you need to use, use this trick: on the instances list screen, click on down-arrow next to “SSH”.</p>
+<p><img src="assets/ssh_flags1.png"></p>
+<p>Choose “View gcloud command”.</p>
+<p><img src="assets/ssh_flags2.png"></p>
+<p>If you have more than one Google account, insert also a username before the instance name.</p>
 <pre><code>./bin/gcloud compute --project &quot;my-project-cdh-docker-251102&quot; ssh --zone &quot;us-central1-a&quot; dryyellowpeas3@&quot;instance-cdh&quot; </code></pre>
-<p>Install Docker:</p>
+</div>
+<div id="install-docker" class="section level5">
+<h5>2. Install Docker</h5>
 <pre><code>curl -sSL https://get.docker.com/ | sh</code></pre>
-<p>Update:</p>
+</div>
+<div id="update" class="section level5">
+<h5>3. Update:</h5>
 <pre><code>sudo apt-get update</code></pre>
-<p>Get the Cloudera Quickstart Image:</p>
+</div>
+<div id="get-the-cloudera-quickstart-image" class="section level5">
+<h5>4. Get the Cloudera Quickstart Image:</h5>
 <pre><code>sudo wget https://downloads.cloudera.com/demo_vm/docker/cloudera-quickstart-vm-5.13.0-0-beta-docker.tar.gz</code></pre>
-<p>Extract .tar file:</p>
+</div>
+<div id="extract-.tar-file" class="section level5">
+<h5>5. Extract .tar file:</h5>
 <pre><code>tar xzf cloudera-quickstart-vm-*-docker.tar.gz</code></pre>
-<p>Change into <code>cloudera-quickstart-vm-5.13.0-0-beta-docker</code> directory and import the docker image. <br> * If you run out of space, remove the tar.gz file and re-run the import:</p>
-<pre><code>`sudo docker import cloudera-quickstart-vm-5.13.0–0-beta-docker.tar`</code></pre>
+</div>
+<div id="import-the-docker-image" class="section level5">
+<h5>6. Import the docker image</h5>
+<p>Change into <code>cloudera-quickstart-vm-5.13.0-0-beta-docker</code> directory and import the docker image. <br> If you run out of space, remove the tar.gz file (in the parent directory), change into <code>cloudera-quickstart-vm-5.13.0-0-beta-docker</code> directory and re-run the import:</p>
+<pre><code>sudo docker import cloudera-quickstart-vm-5.13.0–0-beta-docker.tar</code></pre>
 <p><img src="assets/docker_import_container.png"></p>
-<p>Check container images:</p>
+</div>
+<div id="check-container-images" class="section level5">
+<h5>7. Check container images:</h5>
 <pre><code>sudo docker images</code></pre>
-<p>Run container:</p>
-<pre><code>sudo docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8777:8888 -p 7190:7180 -p 90:80 b46c7719892d /usr/bin/docker-quickstart</code></pre>
+</div>
+<div id="run-container" class="section level5">
+<h5>8. Run container:</h5>
+<pre><code>sudo docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8777:8888 -p 7190:7180 -p 90:80 5733766d0a12 /usr/bin/docker-quickstart</code></pre>
 <p><img src="assets/docker_run_container.png"></p>
-<p>After running the container, we are now inside container’s shell. <br> Test Spark:</p>
+</div>
+<div id="this-is-the-end-of-one-time-setup-process" class="section level3">
+<h3>This is the end of one-time setup process</h3>
+<p>As long as you don’t destroy your VM instance (it can be stopped and started as needed), the docker container is all set up inside the VM instance. From now on (after staring your VM instance), type only two commands on your local terminal: 1 and 8 (remote ssh login and container boot-up):</p>
+<pre><code>./bin/gcloud compute --project &quot;my-project-cdh-docker-251102&quot; ssh --zone &quot;us-central1-a&quot; dryyellowpeas3@&quot;instance-cdh&quot;
+
+sudo docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8777:8888 -p 7190:7180 -p 90:80 5733766d0a12 /usr/bin/docker-quickstart</code></pre>
+<p>After running the container, we are now inside the container’s shell.</p>
+<ul>
+<li>Test Spark:</li>
+</ul>
 <p><img src="assets/spark1.png"></p>
-<p>Test Hive:</p>
+<ul>
+<li>Test Hive:</li>
+</ul>
 <p><img src="assets/hive1.png"></p>
-<p>Test HBase:</p>
+<ul>
+<li>Test HBase:</li>
+</ul>
 <p><img src="assets/hbase1.png"></p>
+</div>
+</div>
+<div id="connecting-to-hue-web-interface" class="section level2">
+<h2>Connecting to Hue web interface</h2>
+<p>While leaving the container running, open another terminal window on local machine, connect with ssh (command 1)</p>
+<p><img src="assets/hue1.png"></p>
+<p>Username and password: cloudera/cloudera</p>
+<p><img src="assets/hue2.png"></p>
+</div>
 
 
 

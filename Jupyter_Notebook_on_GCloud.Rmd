@@ -1,5 +1,5 @@
 ---
-title: "Running Jupyter Notebook on GCloud"
+title: "Running Jupyter Notebook on Google Compute Engine"
 author: ""
 date: "25/08/2019"
 output: html_document
@@ -9,10 +9,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Jupyter Notebook on the Cloud
 
-### Setting up the Cloud instance
-Set up is pretty straightforward. Follow the __[quickstart](https://cloud.google.com/compute/docs/quickstart-linux)__; here are my settings:
+(based on __[this](https://alexanderwaldin.github.io/jupyter-notebook-rstudio-cloud.html)__ and __[this](https://stharrold.github.io/20151208-ipynb-on-gce-from-chrome.html#fn:lsof-kill)__ blog posts)
+
+### Setting up a Cloud instance
+
+Setup is pretty straightforward. Follow the __[quickstart](https://cloud.google.com/compute/docs/quickstart-linux)__; here are my settings:
 
 * Instance size: I chose the smallest to start, but you can __[resize](https://cloud.google.com/compute/docs/instances/changing-machine-type-of-stopped-instance)__ at any time.
 * Operating System: I chose Debian for it's stability.
