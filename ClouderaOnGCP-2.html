@@ -12,7 +12,7 @@
 
 
 
-<title>CloudComputing.utf8.md</title>
+<title>ClouderaOnGCP-2.utf8.md</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -315,12 +315,36 @@ $(document).ready(function () {
 
 
 <p><link rel="stylesheet" href="styles.css" type="text/css"></p>
-<h1>
-Running Development Environments in the Cloud
-</h1>
-<p><strong><a href="./Jupyter_Notebook_on_GCloud.html">Running Jupyter Notebook on Google Cloud Platform</a></strong></p>
-<p><strong><a href="ClouderaOnGCP.html">Cloudera Quickstart on Google Cloud Platform - Part 1</a></strong></p>
-<p><strong><a href="ClouderaOnGCP-2.html">Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work</a></strong></p>
+<div id="running-cloudera-quickstart-image-v5.13-on-google-cloud-instance---part-2-getting-hue-to-work" class="section level2">
+<h2>Running Cloudera Quickstart Image v5.13 on Google Cloud instance - Part 2 : Getting Hue to Work</h2>
+<p>Continued from <strong><a href="ClouderaOnGCP.html">Cloudera Quickstart on Google Cloud Platform - Part 1</a></strong></p>
+<div id="create-an-ssh-tunnel" class="section level3">
+<h3>1. Create an SSH Tunnel</h3>
+<p>To access your Hue service via browser, you’ll need to forward port 8777 to your local machine using ssh. ssh flags can be passed via gcloud:</p>
+<pre><code>/bin/gcloud compute --project &quot;my-project-cdh-docker-251102&quot; ssh dryyellowpeas3@instance-cdh --ssh-flag=&quot;-L localhost:8777:0.0.0.0:8777&quot;</code></pre>
+<p>We are using port 8777 because we mapped this port to the normal TCP port 8888 up when we started the container ( <strong><a href="./ClouderaOnGCP.html">step 8</a></strong> in Part 1).</p>
+<p>It is also possible to check port mapping on running docker container (explained in the Optional section further down.)</p>
+</div>
+<div id="open-localhost8777" class="section level3">
+<h3>2. Open localhost:8777</h3>
+<p><img src="assets/hue1.png"></p>
+<p>Username and password: cloudera/cloudera</p>
+<p><img src="assets/hue2.png"></p>
+<div id="optional-how-to-check-port-mapping-on-running-container" class="section level4">
+<h4>(Optional) How to check port mapping on running container</h4>
+<p>While leaving the container running in one terminal, open another terminal on local machine, and connect with the same VM instance via ssh (command 1 in Part 1).</p>
+<pre><code>./bin/gcloud compute --project &quot;my-project-cdh-docker-251102&quot; ssh --zone &quot;us-central1-a&quot; dryyellowpeas3@&quot;instance-cdh&quot; </code></pre>
+<p>Check container’s process id:</p>
+<pre><code>sudo docker ps</code></pre>
+<p><img src="assets/hue_setup1.png"></p>
+<p>Inspect the container with that id:</p>
+<pre><code>sudo docker inspect &lt;container_id&gt;</code></pre>
+<p><img src="assets/hue_setup2.png"></p>
+<p>Scroll down until “Network settings”:</p>
+<p><img src="assets/hue_setup3.png"></p>
+</div>
+</div>
+</div>
 
 
 

@@ -17,16 +17,16 @@ Create a project and a VM instance on Google Cloud's __[Compute Engine](https://
 <img src="./assets/create_instance1.png">
 <img src="./assets/create_instance2.png">
 
-##### 1. Connect with SSH
+##### 1. Connect to VM instance via SSH
 From your local machine's terminal, connect to the instance with SSH:
 
     ./bin/gcloud compute --project "my-project-cdh-docker-251102" ssh --zone "us-central1-a" dryyellowpeas3@"instance-cdh" 
     
-To see what flag values you need to use, use this trick: on the instances list screen, click on down-arrow next to "SSH".
+To figure what flag values you need to use, click on down-arrow next to "SSH".
 
 <img src="./assets/ssh_flags1.png">
 
-Choose "View gcloud command". (This is not your SSH command. Here, you just consult with your flags' values.)
+Choose "View gcloud command". View or copy your flags' values and paste them into the above command.
 
 <img src="./assets/ssh_flags2.png">
 
@@ -70,11 +70,9 @@ If you run out of space, remove the tar.gz file (in the parent directory), chang
 
 ### This is the end of one-time setup process
 
-As long as you don't destroy your VM instance (it can be stopped and started as needed), the docker container is all set up inside the VM instance. From now on (after staring your VM instance), type only two commands on your local terminal: 1 and 8 (remote ssh login and container boot-up):
+As long as you don't destroy your VM instance (it can be stopped and started as needed), the docker container is running inside the VM instance. From now on (after staring your VM instance), type only one command for remote ssh login:
 
     ./bin/gcloud compute --project "my-project-cdh-docker-251102" ssh --zone "us-central1-a" dryyellowpeas3@"instance-cdh"
-    
-    sudo docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8777:8888 -p 7190:7180 -p 90:80 5733766d0a12 /usr/bin/docker-quickstart
 
 After running the container, we are now inside the container's shell. 
 
@@ -92,10 +90,4 @@ After running the container, we are now inside the container's shell.
 
 ## Connecting to Hue web interface
 
-While leaving the container running, open another terminal window on local machine, connect with ssh (command 1)
-
-<img src="./assets/hue1.png" style="width:50%; border:1px solid; margin-right: 20px" align="left">
-
-Username and password: cloudera/cloudera
-
-<img src="./assets/hue2.png" style="width:50%; border:1px solid; margin-right: 20px" align="left">
+Discussed in __[Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work](ClouderaOnGCP-2.html)__

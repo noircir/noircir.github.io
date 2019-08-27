@@ -324,13 +324,13 @@ $(document).ready(function () {
 <p>Create a project and a VM instance on Google Cloud’s <strong><a href="https://console.cloud.google.com/compute/">Compute Engine</a></strong>, with 7.5 GB memory and 20 GB disk (this is the absolute minimum!)</p>
 <p><img src="assets/create_instance1.png"> <img src="assets/create_instance2.png"></p>
 </div>
-<div id="connect-with-ssh" class="section level5">
-<h5>1. Connect with SSH</h5>
+<div id="connect-to-vm-instance-via-ssh" class="section level5">
+<h5>1. Connect to VM instance via SSH</h5>
 <p>From your local machine’s terminal, connect to the instance with SSH:</p>
 <pre><code>./bin/gcloud compute --project &quot;my-project-cdh-docker-251102&quot; ssh --zone &quot;us-central1-a&quot; dryyellowpeas3@&quot;instance-cdh&quot; </code></pre>
-<p>To see what flag values you need to use, use this trick: on the instances list screen, click on down-arrow next to “SSH”.</p>
+<p>To figure what flag values you need to use, click on down-arrow next to “SSH”.</p>
 <p><img src="assets/ssh_flags1.png"></p>
-<p>Choose “View gcloud command”. (This is not your SSH command. Here, you just consult with your flags’ values.)</p>
+<p>Choose “View gcloud command”. View or copy your flags’ values and paste them into the above command.</p>
 <p><img src="assets/ssh_flags2.png"></p>
 <p>If you have more than one Google account, insert also a username before the instance name.</p>
 </div>
@@ -367,10 +367,8 @@ $(document).ready(function () {
 </div>
 <div id="this-is-the-end-of-one-time-setup-process" class="section level3">
 <h3>This is the end of one-time setup process</h3>
-<p>As long as you don’t destroy your VM instance (it can be stopped and started as needed), the docker container is all set up inside the VM instance. From now on (after staring your VM instance), type only two commands on your local terminal: 1 and 8 (remote ssh login and container boot-up):</p>
-<pre><code>./bin/gcloud compute --project &quot;my-project-cdh-docker-251102&quot; ssh --zone &quot;us-central1-a&quot; dryyellowpeas3@&quot;instance-cdh&quot;
-
-sudo docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8777:8888 -p 7190:7180 -p 90:80 5733766d0a12 /usr/bin/docker-quickstart</code></pre>
+<p>As long as you don’t destroy your VM instance (it can be stopped and started as needed), the docker container is running inside the VM instance. From now on (after staring your VM instance), type only one command for remote ssh login:</p>
+<pre><code>./bin/gcloud compute --project &quot;my-project-cdh-docker-251102&quot; ssh --zone &quot;us-central1-a&quot; dryyellowpeas3@&quot;instance-cdh&quot;</code></pre>
 <p>After running the container, we are now inside the container’s shell.</p>
 <ul>
 <li>Test Spark:</li>
@@ -388,10 +386,7 @@ sudo docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8777:8
 </div>
 <div id="connecting-to-hue-web-interface" class="section level2">
 <h2>Connecting to Hue web interface</h2>
-<p>While leaving the container running, open another terminal window on local machine, connect with ssh (command 1)</p>
-<p><img src="assets/hue1.png" style="width:50%; border:1px solid; margin-right: 20px" align="left"></p>
-<p>Username and password: cloudera/cloudera</p>
-<p><img src="assets/hue2.png" style="width:50%; border:1px solid; margin-right: 20px" align="left"></p>
+<p>Discussed in <strong><a href="ClouderaOnGCP-2.html">Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work</a></strong></p>
 </div>
 
 
