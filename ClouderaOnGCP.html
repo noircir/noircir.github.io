@@ -12,7 +12,7 @@
 
 
 
-<title>CloudComputing.utf8.md</title>
+<title>ClouderaOnGCP.utf8.md</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -315,11 +315,32 @@ $(document).ready(function () {
 
 
 <p><link rel="stylesheet" href="styles.css" type="text/css"></p>
-<h1>
-Running Development Environments in the Cloud
-</h1>
-<p><a href="./Jupyter_Notebook_on_GCloud.html">Running Jupyter Notebook on Google Cloud</a></p>
-<p><a href="ClouderaOnGCP.html">Cloudera Quickstart on Google Cloud Platform</a></p>
+<p>Create a project and a VM instance on GCP, with 7.5 GB memory and 20 GB disk (this is the absolute minimum!)</p>
+<p><img src="assets/create_instance1.png"> <img src="assets/create_instance2.png"></p>
+<p>Connect with SSH:</p>
+<pre><code>./bin/gcloud compute --project &quot;my-project-cdh-docker-251102&quot; ssh --zone &quot;us-central1-a&quot; dryyellowpeas3@&quot;instance-cdh&quot; </code></pre>
+<p>Install Docker:</p>
+<pre><code>curl -sSL https://get.docker.com/ | sh</code></pre>
+<p>Update:</p>
+<pre><code>sudo apt-get update</code></pre>
+<p>Get the Cloudera Quickstart Image:</p>
+<pre><code>sudo wget https://downloads.cloudera.com/demo_vm/docker/cloudera-quickstart-vm-5.13.0-0-beta-docker.tar.gz</code></pre>
+<p>Extract .tar file:</p>
+<pre><code>tar xzf cloudera-quickstart-vm-*-docker.tar.gz</code></pre>
+<p>Change into <code>cloudera-quickstart-vm-5.13.0-0-beta-docker</code> directory and import the docker image. <br> * If you run out of space, remove the tar.gz file and re-run the import:</p>
+<pre><code>`sudo docker import cloudera-quickstart-vm-5.13.0–0-beta-docker.tar`</code></pre>
+<p><img src="assets/docker_import_container.png"></p>
+<p>Check container images:</p>
+<pre><code>sudo docker images</code></pre>
+<p>Run container:</p>
+<pre><code>sudo docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8777:8888 -p 7190:7180 -p 90:80 b46c7719892d /usr/bin/docker-quickstart</code></pre>
+<p><img src="assets/docker_run_container.png"></p>
+<p>After running the container, we are now inside container’s shell. <br> Test Spark:</p>
+<p><img src="assets/spark1.png"></p>
+<p>Test Hive:</p>
+<p><img src="assets/hive1.png"></p>
+<p>Test HBase:</p>
+<p><img src="assets/hbase1.png"></p>
 
 
 

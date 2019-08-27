@@ -1,0 +1,65 @@
+---
+---
+
+<link rel="stylesheet" href="styles.css" type="text/css">
+
+Create a project and a VM instance on GCP, with 7.5 GB memory and 20 GB disk (this is the absolute minimum!)
+
+<img src="./assets/create_instance1.png">
+<img src="./assets/create_instance2.png">
+
+Connect with SSH:
+
+    ./bin/gcloud compute --project "my-project-cdh-docker-251102" ssh --zone "us-central1-a" dryyellowpeas3@"instance-cdh" 
+    
+Install Docker:
+
+    curl -sSL https://get.docker.com/ | sh
+    
+Update:
+
+    sudo apt-get update
+
+Get the Cloudera Quickstart Image:
+
+    sudo wget https://downloads.cloudera.com/demo_vm/docker/cloudera-quickstart-vm-5.13.0-0-beta-docker.tar.gz
+    
+Extract .tar file:
+
+    tar xzf cloudera-quickstart-vm-*-docker.tar.gz
+
+
+Change into `cloudera-quickstart-vm-5.13.0-0-beta-docker` directory and import the docker image.
+<br>
+* If you run out of space, remove the tar.gz file and re-run the import:
+
+    `sudo docker import cloudera-quickstart-vm-5.13.0–0-beta-docker.tar`
+    
+<img src="./assets/docker_import_container.png">
+
+Check container images:
+
+    sudo docker images
+    
+Run container:
+
+    sudo docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8777:8888 -p 7190:7180 -p 90:80 b46c7719892d /usr/bin/docker-quickstart
+    
+<img src="./assets/docker_run_container.png">
+
+
+After running the container, we are now inside container's shell. 
+<br>
+Test Spark:
+
+<img src="./assets/spark1.png">
+
+Test Hive:
+
+<img src="./assets/hive1.png">
+
+Test HBase:
+
+<img src="./assets/hbase1.png">
+
+
