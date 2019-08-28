@@ -12,7 +12,7 @@
 
 
 
-<title>About.utf8.md</title>
+<title>Port_Mapping_Container.utf8.md</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -315,8 +315,19 @@ $(document).ready(function () {
 
 
 <p><link rel="stylesheet" href="styles.css" type="text/css"></p>
-<p>Hello!</p>
-<p><a href="./index.html">Home</a></p>
+<div id="how-to-check-port-mapping-of-a-running-container-on-a-vm-instance-on-google-cloud" class="section level2">
+<h2>How to check port mapping of a running container on a VM instance on Google Cloud</h2>
+<p>While leaving the container running in one terminal, open another terminal on your local machine, and connect with the same VM instance via ssh:</p>
+<pre><code>./bin/gcloud compute --project &quot;my-project-cdh-docker-251102&quot; ssh --zone &quot;us-central1-a&quot; dryyellowpeas3@&quot;instance-cdh&quot; </code></pre>
+<p>Check container’s process id:</p>
+<pre><code>sudo docker ps</code></pre>
+<p><img src="assets/hue_setup1.png" style="width:50%"></p>
+<p>Inspect the container with that id:</p>
+<pre><code>sudo docker inspect &lt;container_id&gt;</code></pre>
+<p><img src="assets/hue_setup2.png" style="width:50%"></p>
+<p>Scroll down until “Network settings”. These are the mapped ports:</p>
+<p><img src="assets/hue_setup3.png" style="width:40%"></p>
+</div>
 
 
 

@@ -1,0 +1,26 @@
+---
+---
+
+<link rel="stylesheet" href="styles.css" type="text/css">
+
+## How to check port mapping of a running container on a VM instance on Google Cloud
+
+While leaving the container running in one terminal, open another terminal on your local machine, and connect with the same VM instance via ssh:
+
+    ./bin/gcloud compute --project "my-project-cdh-docker-251102" ssh --zone "us-central1-a" dryyellowpeas3@"instance-cdh" 
+
+Check container's process id:
+
+    sudo docker ps
+    
+<img src="./assets/hue_setup1.png" style="width:50%">
+
+Inspect the container with that id:
+
+    sudo docker inspect <container_id>
+
+<img src="./assets/hue_setup2.png" style="width:50%">
+
+Scroll down until "Network settings". These are the mapped ports:
+
+<img src="./assets/hue_setup3.png" style="width:40%">

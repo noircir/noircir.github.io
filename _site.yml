@@ -15,7 +15,7 @@ navbar:
     - icon: fa-envelope fa-lg
       href: contact.html
     - icon: fa-github fa-lg
-      href: http://github.com/noircir
+      href: 
 output:
   html_document:
     theme: paper
