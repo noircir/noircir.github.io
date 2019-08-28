@@ -315,8 +315,8 @@ $(document).ready(function () {
 
 
 <p><link rel="stylesheet" href="styles.css" type="text/css"></p>
-<div id="running-cloudera-quickstart-image-v5.13-on-google-cloud-instance" class="section level2">
-<h2>Running Cloudera Quickstart Image v5.13 on Google Cloud instance</h2>
+<div id="running-cloudera-quickstart-image-on-google-cloud-instance" class="section level2">
+<h2>Running Cloudera Quickstart Image on Google Cloud instance</h2>
 <p>Inspired by these Medium articles: <br> <strong><a href="https://medium.com/@alipazaga07/big-data-as-a-service-get-easily-running-a-cloudera-quickstart-image-with-dockers-in-gcp-34d28aa7dad7">Big Data as a Service, get easily running a Cloudera Quickstart Image with Dockers in GCP</a></strong></p>
 <p><strong><a href="https://medium.com/@SnazzyHam/how-to-get-up-and-running-with-clouderas-quickstart-docker-container-732c04ed0280">How to get up and running with Cloudera’s Quickstart Docker Container</a></strong></p>
 <div id="preliminary-step-create-an-instance-on-google-cloud" class="section level5">
@@ -367,7 +367,7 @@ $(document).ready(function () {
 </div>
 <div id="this-is-the-end-of-one-time-setup-process" class="section level3">
 <h3>This is the end of one-time setup process</h3>
-<p>As long as you don’t destroy your VM instance (it can be stopped and started as needed), the docker container is running inside the VM instance. From now on (after staring your VM instance), type only one command for remote ssh login:</p>
+<p>As long as you don’t destroy your VM instance (it can be stopped and started as needed), the docker container is running inside the VM instance. From now on (after restarting your VM instance), type only one command for remote ssh login:</p>
 <pre><code>./bin/gcloud compute --project &quot;my-project-cdh-docker-251102&quot; ssh --zone &quot;us-central1-a&quot; dryyellowpeas3@&quot;instance-cdh&quot;</code></pre>
 <p>After running the container, we are now inside the container’s shell.</p>
 <ul>

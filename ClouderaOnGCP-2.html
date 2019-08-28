@@ -315,8 +315,8 @@ $(document).ready(function () {
 
 
 <p><link rel="stylesheet" href="styles.css" type="text/css"></p>
-<div id="running-cloudera-quickstart-image-v5.13-on-google-cloud-instance---part-2-getting-hue-to-work" class="section level2">
-<h2>Running Cloudera Quickstart Image v5.13 on Google Cloud instance - Part 2 : Getting Hue to Work</h2>
+<div id="running-cloudera-quickstart-image-on-google-cloud-instance---part-2-connecting-to-hue-web-interface" class="section level2">
+<h2>Running Cloudera Quickstart Image on Google Cloud instance - Part 2 : Connecting to Hue web interface</h2>
 <p>Continued from <strong><a href="ClouderaOnGCP.html">Cloudera Quickstart on Google Cloud Platform - Part 1</a></strong></p>
 <div id="create-an-ssh-tunnel" class="section level3">
 <h3>1. Create an SSH Tunnel</h3>
@@ -327,22 +327,22 @@ $(document).ready(function () {
 </div>
 <div id="open-localhost8777" class="section level3">
 <h3>2. Open localhost:8777</h3>
-<p><img src="assets/hue1.png" style="width:50%"></p>
+<p><img src="assets/hue1.png" style="width:30%"></p>
 <p>Username and password: cloudera/cloudera</p>
 <p><img src="assets/hue2.png" style="width:50%"></p>
 </div>
-<div id="optional-how-to-check-port-mapping-on-running-container" class="section level3">
-<h3>(Optional) How to check port mapping on running container</h3>
-<p>While leaving the container running in one terminal, open another terminal on local machine, and connect with the same VM instance via ssh (command 1 in Part 1).</p>
+<div id="optional-how-to-check-port-mapping-of-running-container" class="section level3">
+<h3>(Optional) How to check port mapping of running container</h3>
+<p>While leaving the container running in one terminal, open another terminal on your local machine, and connect with the same VM instance via ssh:</p>
 <pre><code>./bin/gcloud compute --project &quot;my-project-cdh-docker-251102&quot; ssh --zone &quot;us-central1-a&quot; dryyellowpeas3@&quot;instance-cdh&quot; </code></pre>
 <p>Check container’s process id:</p>
 <pre><code>sudo docker ps</code></pre>
-<p><img src="assets/hue_setup1.png" style="width:70%"></p>
+<p><img src="assets/hue_setup1.png" style="width:50%"></p>
 <p>Inspect the container with that id:</p>
 <pre><code>sudo docker inspect &lt;container_id&gt;</code></pre>
-<p><img src="assets/hue_setup2.png" style="width:70%"></p>
+<p><img src="assets/hue_setup2.png" style="width:50%"></p>
 <p>Scroll down until “Network settings”:</p>
-<p><img src="assets/hue_setup3.png" style="width:50%"></p>
+<p><img src="assets/hue_setup3.png" style="width:40%"></p>
 </div>
 </div>
 

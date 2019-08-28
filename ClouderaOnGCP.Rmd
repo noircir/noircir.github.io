@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="styles.css" type="text/css">
 
-## Running Cloudera Quickstart Image v5.13 on Google Cloud instance
+## Running Cloudera Quickstart Image on Google Cloud instance
 
 Inspired by these Medium articles:
 <br>
@@ -70,7 +70,7 @@ If you run out of space, remove the tar.gz file (in the parent directory), chang
 
 ### This is the end of one-time setup process
 
-As long as you don't destroy your VM instance (it can be stopped and started as needed), the docker container is running inside the VM instance. From now on (after staring your VM instance), type only one command for remote ssh login:
+As long as you don't destroy your VM instance (it can be stopped and started as needed), the docker container is running inside the VM instance. From now on (after restarting your VM instance), type only one command for remote ssh login:
 
     ./bin/gcloud compute --project "my-project-cdh-docker-251102" ssh --zone "us-central1-a" dryyellowpeas3@"instance-cdh"
 

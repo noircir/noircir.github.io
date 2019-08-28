@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="styles.css" type="text/css">
 
-## Running Cloudera Quickstart Image v5.13 on Google Cloud instance - Part 2 : Getting Hue to Work
+## Running Cloudera Quickstart Image on Google Cloud instance - Part 2 : Connecting to Hue web interface
 
 Continued from __[Cloudera Quickstart on Google Cloud Platform - Part 1](ClouderaOnGCP.html)__
 
@@ -21,7 +21,7 @@ It is also possible to check port mapping on running docker container (explained
 
 ### 2. Open localhost:8777
 
-<img src="./assets/hue1.png" style="width:50%">
+<img src="./assets/hue1.png" style="width:30%">
 
 Username and password: cloudera/cloudera
 
@@ -30,9 +30,9 @@ Username and password: cloudera/cloudera
 
 
 
-### (Optional) How to check port mapping on running container
+### (Optional) How to check port mapping of running container
 
-While leaving the container running in one terminal, open another terminal on local machine, and connect with the same VM instance via ssh (command 1 in Part 1).
+While leaving the container running in one terminal, open another terminal on your local machine, and connect with the same VM instance via ssh:
 
     ./bin/gcloud compute --project "my-project-cdh-docker-251102" ssh --zone "us-central1-a" dryyellowpeas3@"instance-cdh" 
 
@@ -40,14 +40,14 @@ Check container's process id:
 
     sudo docker ps
     
-<img src="./assets/hue_setup1.png" style="width:70%">
+<img src="./assets/hue_setup1.png" style="width:50%">
 
 Inspect the container with that id:
 
     sudo docker inspect <container_id>
 
-<img src="./assets/hue_setup2.png" style="width:70%">
+<img src="./assets/hue_setup2.png" style="width:50%">
 
 Scroll down until "Network settings":
 
-<img src="./assets/hue_setup3.png" style="width:50%">
+<img src="./assets/hue_setup3.png" style="width:40%">
