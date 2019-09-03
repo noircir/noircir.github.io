@@ -318,9 +318,21 @@ $(document).ready(function () {
 
 
 <p>(based on <strong><a href="https://alexanderwaldin.github.io/jupyter-notebook-rstudio-cloud.html">this</a></strong> and <strong><a href="https://stharrold.github.io/20151208-ipynb-on-gce-from-chrome.html#fn:lsof-kill">this</a></strong> blog posts)</p>
-<div id="setting-up-a-cloud-instance" class="section level3">
-<h3>Setting up a Cloud instance</h3>
-<p>Setup is pretty straightforward. Follow the <strong><a href="https://cloud.google.com/compute/docs/quickstart-linux">quickstart</a></strong>; here are my settings:</p>
+<div id="to-set-up-jupyter-notebook-on-the-cloud" class="section level2">
+<h2>To set up Jupyter Notebook on the cloud:</h2>
+<ol style="list-style-type: decimal">
+<li><strong><a href="#1">Create your new personal computer</a></strong> on Google Cloud (called VM (Virtual Machine) instance).</li>
+<li><strong><a href="#2">Login into your VM instance with SSH.</a></strong> Now you are inside your new computer.</li>
+<li><strong><a href="#3">Install Anaconda distribution</a></strong> in there.</li>
+<li><strong><a href="#4">Start Jupyter Notebook</a></strong> in there.</li>
+<li><strong><a href="#5">Create an SSH tunnel</a></strong> between your cloud computer and your local computer.</li>
+<li><strong><a href="#6">View Jupyter Notebook</a></strong> in your local browser.</li>
+<li><strong><a href="#7">Upload and download files</a></strong> to and from the cloud computer.</li>
+<li><strong><a href="#8">Stop</a></strong> the VM instance.</li>
+</ol>
+<div id="create-your-new-personal-computer-on-google-cloud-called-virtual-machine-instance." class="section level4">
+<h4><a id="1"></a>1. Create your new personal computer on Google Cloud (called Virtual Machine instance).</h4>
+<p>“Google Cloud Platform” is an umbrella term for various computing services. We are interested in Compute Engine service. Follow their <strong><a href="https://cloud.google.com/compute/docs/quickstart-linux">quickstart</a></strong>; here are my settings:</p>
 <ul>
 <li>Instance size: I chose the smallest to start, but you can <strong><a href="https://cloud.google.com/compute/docs/instances/changing-machine-type-of-stopped-instance">resize</a></strong> at any time.</li>
 <li>Operating System: I chose Debian for it’s stability.</li>
@@ -330,9 +342,35 @@ $(document).ready(function () {
 <li>10Gbyte to save money. You can always make it larger later, but not smaller.</li>
 </ul></li>
 <li>Firewall: Allow HTTP and HTTPS connections to use <code>curl</code> and <code>wget</code>.</li>
-<li><strong>If you access GCloud with an in-browser terminal and run across an error “Insufficient authentication scopes”, set Access scopes to “Allow full access to all Cloud APIs”. (During instance creation, or edit later, whith stopped instance.)</strong></li>
+<li><strong>If you run across an error “Insufficient authentication scopes”, set Access scopes to “Allow full access to all Cloud APIs”. (You can edit a stopped instance.)</strong></li>
 </ul>
 <p><img src="assets/allowCloudAPIs.png" /></p>
+</div>
+<div id="connect-to-your-vm-instance-with-ssh.-now-you-are-inside-your-new-computer." class="section level4">
+<h4><a id="2"></a>2. Connect to your VM instance with SSH. Now you are inside your new computer.</h4>
+</div>
+<div id="install-anaconda-distribution-in-there." class="section level4">
+<h4><a id="3"></a>3. Install Anaconda distribution in there.</h4>
+</div>
+<div id="start-jupyter-notebook-in-there." class="section level4">
+<h4><a id="4"></a>4. Start Jupyter Notebook in there.</h4>
+</div>
+<div id="create-an-ssh-tunnel-between-your-cloud-computer-and-local-computer." class="section level4">
+<h4><a id="5"></a>5. Create an SSH tunnel between your cloud computer and local computer.</h4>
+</div>
+<div id="view-jupyter-notebook-in-your-local-browser." class="section level4">
+<h4><a id="6"></a>6. View Jupyter Notebook in your local browser.</h4>
+</div>
+<div id="upload-and-download-files-to-and-from-the-cloud-computer." class="section level4">
+<h4><a id="7"></a>7. Upload and download files to and from the cloud computer.</h4>
+</div>
+<div id="stop-the-vm-instance." class="section level4">
+<h4><a id="8"></a>8. Stop the VM instance.</h4>
+<p><img src="assets/stop_VM.png" /></p>
+</div>
+<div id="setting-up-a-cloud-instance" class="section level3">
+<h3>Setting up a Cloud instance</h3>
+<p>Setup is pretty straightforward. Follow the <strong><a href="https://cloud.google.com/compute/docs/quickstart-linux">quickstart</a></strong>; here are my settings:</p>
 <ul>
 <li>Once you have the instance running, connect to it using <strong><a href="https://cloud.google.com/compute/docs/instances/connecting-to-instance#sshingcloud">gcloud tools</a></strong>.</li>
 </ul>
@@ -373,6 +411,7 @@ $(document).ready(function () {
 <pre><code>gsutil cp -r gs://my_bucket_555 .</code></pre>
 <p>From the instance to the bucket:</p>
 <pre><code>gsutil cp -r ~/dir gs://my_bucket_555</code></pre>
+</div>
 </div>
 </div>
 

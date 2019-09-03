@@ -13,3 +13,7 @@ __[Cloudera Quickstart on Google Cloud Platform - Part 1](ClouderaOnGCP.html)__
 
 __[Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work](ClouderaOnGCP-2.html)__
 
+
+
+
+

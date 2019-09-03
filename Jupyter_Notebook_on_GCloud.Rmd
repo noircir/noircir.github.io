@@ -12,9 +12,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 (based on __[this](https://alexanderwaldin.github.io/jupyter-notebook-rstudio-cloud.html)__ and __[this](https://stharrold.github.io/20151208-ipynb-on-gce-from-chrome.html#fn:lsof-kill)__ blog posts)
 
-### Setting up a Cloud instance
 
-Setup is pretty straightforward. Follow the __[quickstart](https://cloud.google.com/compute/docs/quickstart-linux)__; here are my settings:
+## To set up Jupyter Notebook on the cloud:
+
+1. __[Create your new personal computer](#1)__ on Google Cloud (called VM (Virtual Machine) instance).
+2. __[Login into your VM instance with SSH.](#2)__ Now you are inside your new computer.
+3. __[Install Anaconda distribution](#3)__ in there.
+4. __[Start Jupyter Notebook](#4)__ in there.
+5. __[Create an SSH tunnel](#5)__ between your cloud computer and your local computer.
+6. __[View Jupyter Notebook](#6)__ in your local browser.
+7. __[Upload and download files](#7)__ to and from the cloud computer.
+8. __[Stop](#8)__ the VM instance.
+
+
+#### <a id="1"></a>1. Create your new personal computer on Google Cloud (called Virtual Machine instance).
+"Google Cloud Platform" is an umbrella term for various computing services. We are interested in Compute Engine service. Follow their __[quickstart](https://cloud.google.com/compute/docs/quickstart-linux)__; here are my settings:
 
 * Instance size: I chose the smallest to start, but you can __[resize](https://cloud.google.com/compute/docs/instances/changing-machine-type-of-stopped-instance)__ at any time.
 * Operating System: I chose Debian for it's stability.
@@ -22,9 +34,35 @@ Setup is pretty straightforward. Follow the __[quickstart](https://cloud.google.
   * SSD for speed.
   * 10Gbyte to save money. You can always make it larger later, but not smaller.
 * Firewall: Allow HTTP and HTTPS connections to use `curl` and `wget`.
-* __If you access GCloud with an in-browser terminal and run across an error "Insufficient authentication scopes", set  Access scopes to "Allow full access to all Cloud APIs". (During instance creation, or edit later, whith stopped instance.)__
+* __If you run across an error "Insufficient authentication scopes", set  Access scopes to "Allow full access to all Cloud APIs". (You can edit a stopped instance.)__
 
 ![](./assets/allowCloudAPIs.png)
+
+
+#### <a id="2"></a>2. Connect to your VM instance with SSH. Now you are inside your new computer.
+
+#### <a id="3"></a>3. Install Anaconda distribution in there.
+
+#### <a id="4"></a>4. Start Jupyter Notebook in there.
+
+#### <a id="5"></a>5. Create an SSH tunnel between your cloud computer and local computer.
+
+#### <a id="6"></a>6. View Jupyter Notebook in your local browser.
+
+#### <a id="7"></a>7. Upload and download files to and from the cloud computer.
+
+#### <a id="8"></a>8. Stop the VM instance.
+![](./assets/stop_VM.png)
+
+
+
+
+
+### Setting up a Cloud instance
+
+Setup is pretty straightforward. Follow the __[quickstart](https://cloud.google.com/compute/docs/quickstart-linux)__; here are my settings:
+
+
 
 * Once you have the instance running, connect to it using __[gcloud tools](https://cloud.google.com/compute/docs/instances/connecting-to-instance#sshingcloud)__.
 
@@ -81,6 +119,12 @@ Copy files from the bucket to the instance (on VM terminal) (`-r` flag for direc
 From the instance to the bucket:
     
     gsutil cp -r ~/dir gs://my_bucket_555
+
+
+
+
+
+
 
 
 
