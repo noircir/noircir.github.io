@@ -8,3 +8,7 @@ __[Anaconda (conda) and virtualenv on Mac](./conda_virtualenv.html)__
 __[How to check port mapping of a running container on a VM instance on Google Cloud](./Port_Mapping_Container.html)__
 
 __[R colors](chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)__
+
+__[R keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)__
+
+__[The viridis color palettes](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html)__
