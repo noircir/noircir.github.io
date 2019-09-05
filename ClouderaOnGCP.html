@@ -367,8 +367,24 @@ $(document).ready(function () {
 </div>
 <div id="this-is-the-end-of-one-time-setup-process" class="section level3">
 <h3>This is the end of one-time setup process</h3>
-<p>As long as you don’t destroy your VM instance (it can be stopped and started as needed), the docker container is running inside the VM instance. From now on (after restarting your VM instance), type only one command for remote ssh login:</p>
-<pre><code>./bin/gcloud compute --project &quot;my-project-cdh-docker-251102&quot; ssh --zone &quot;us-central1-a&quot; dryyellowpeas3@&quot;instance-cdh&quot;</code></pre>
+<p>From now on (after restarting your VM instance),</p>
+<ol style="list-style-type: decimal">
+<li>login to your VM with remote ssh:</li>
+</ol>
+<p><code>./bin/gcloud compute --project &quot;my-project-cdh-docker-251102&quot; ssh --zone &quot;us-central1-a&quot; dryyellowpeas3@&quot;instance-cdh&quot;</code></p>
+<ol start="2" style="list-style-type: decimal">
+<li>check for the container id:</li>
+</ol>
+<p><code>sudo docker images</code></p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>you can check what is running:</p>
+<p>sudo docker ps</p></li>
+</ol>
+<p><code>sudo docker ps</code></p>
+<ol start="4" style="list-style-type: decimal">
+<li>and start the container:</li>
+</ol>
+<p><code>sudo docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8777:8888 -p 7190:7180 -p 90:80 5733766d0a12 /usr/bin/docker-quickstart</code></p>
 <p>After running the container, we are now inside the container’s shell.</p>
 <ul>
 <li>Test Spark:</li>
