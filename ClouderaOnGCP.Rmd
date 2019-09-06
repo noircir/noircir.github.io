@@ -102,6 +102,12 @@ After running the container, we are now inside the container's shell.
 
 <img src="./assets/hbase1.png">
 
+- Java and Hadoop versions:
+
+<img src="./assets/java-hadoop-versions-cloudera-container.png">
+
+
+
 ## Connecting to Hue web interface
 
 Discussed in __[Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work](ClouderaOnGCP-2.html)__
