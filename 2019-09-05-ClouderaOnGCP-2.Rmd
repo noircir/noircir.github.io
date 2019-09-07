@@ -5,7 +5,7 @@
 
 ## Running Cloudera Quickstart Image on Google Cloud instance - Part 2 : Getting Hue to work
 
-Continued from __[Cloudera Quickstart on Google Cloud Platform - Part 1](ClouderaOnGCP.html)__
+Continued from __[Cloudera Quickstart on Google Cloud Platform - Part 1](2019-09-05-ClouderaOnGCP.html)__
 
 
 ### 1. Create an SSH tunnel
