@@ -7,11 +7,11 @@
 <h1>Running Development Environments in the Cloud</h1>
 
 
-__[Running Jupyter Notebook on Google Cloud Platform](./Jupyter_Notebook_on_GCloud.html)__
+__[Running Jupyter Notebook on Google Cloud Platform](./2019-08-25-Jupyter_Notebook_on_GCloud.html)__
 
-__[Cloudera Quickstart on Google Cloud Platform - Part 1](ClouderaOnGCP.html)__
+__[Cloudera Quickstart on Google Cloud Platform - Part 1](2019-09-05-ClouderaOnGCP.html)__
 
-__[Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work](ClouderaOnGCP-2.html)__
+__[Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work](2019-09-05-ClouderaOnGCP-2.html)__
 
 
 

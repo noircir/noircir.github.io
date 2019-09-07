@@ -114,4 +114,4 @@ After running the container, we are now inside the container's shell.
 
 ## Connecting to Hue web interface
 
-Discussed in __[Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work](ClouderaOnGCP-2.html)__
+Discussed in __[Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work](2019-09-05-ClouderaOnGCP-2.html)__

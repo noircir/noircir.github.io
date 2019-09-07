@@ -3,9 +3,9 @@
 
 <link rel="stylesheet" href="styles.css" type="text/css">
 
-__[Anaconda (conda) and virtualenv on Mac](./conda_virtualenv.html)__
+__[Anaconda (conda) and virtualenv on Mac](./2019-08-26-conda_virtualenv.html)__
 
-__[How to check port mapping of a running container on a VM instance on Google Cloud](./Port_Mapping_Container.html)__
+__[How to check port mapping of a running container on a VM instance on Google Cloud](./2019-08-27-Port_Mapping_Container.html)__
 
 __[R colors](chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)__
 
