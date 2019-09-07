@@ -315,6 +315,8 @@ $(document).ready(function () {
 
 
 <p><link rel="stylesheet" href="styles.css" type="text/css"></p>
+<div id="toronto-major-crime-indicators-2014-2018" class="section level1">
+<h1>Toronto Major Crime Indicators 2014-2018</h1>
 <div id="introduction" class="section level2">
 <h2>1. Introduction</h2>
 <p>Toronto Police made publicly available its data on the <strong><a href="https://data.torontopolice.on.ca/search?tags=MCI">“Toronto Police Service Public Safety Data Portal”</a></strong>.</p>
@@ -855,9 +857,9 @@ wss</code></pre>
   wss[i] &lt;- sum(kmeans(z, centers=i)$withinss)
 }
 wss</code></pre>
-<pre><code>##  [1] 700.00000 369.45787 266.50542 237.94558 228.89866 224.37644 219.95452
-##  [8] 115.84899 104.80120  94.00327  85.57967  79.91716  80.43286  89.49358
-## [15]  61.80199  68.98196  60.19511  58.89800  67.51510  64.08788</code></pre>
+<pre><code>##  [1] 700.00000 369.45787 266.50542 237.94558 228.89866 152.77542 213.41202
+##  [8] 107.75724 103.22366  94.00327 201.06666  81.53333  78.68695  76.20141
+## [15]  86.21518  72.59308  70.89679  66.22138  66.32382  64.85852</code></pre>
 <p>Plotted WSS (type=‘b’ is for both: lines and points.)</p>
 <pre class="r"><code>plot(1:20, wss, type=&#39;b&#39;, xlab=&#39;Number of Clusters&#39;, ylab=&#39;Within groups sum of squares&#39;)</code></pre>
 <p><img src="2019-09-04-Toronto_MCI_files/figure-html/WSS%20plot-1.png" width="672" /></p>
@@ -867,25 +869,25 @@ wss</code></pre>
 <h3>Fitting a model, K = 5</h3>
 <pre class="r"><code>kc &lt;- kmeans(z, 5)
 kc</code></pre>
-<pre><code>## K-means clustering with 5 clusters of sizes 24, 17, 9, 36, 55
+<pre><code>## K-means clustering with 5 clusters of sizes 24, 9, 55, 17, 36
 ## 
 ## Cluster means:
 ##      Assault  Auto Theft Break and Enter     Robbery  Theft Over
 ## 1  0.1003022 -0.05975684       0.6193567  0.08152204  0.08407757
-## 2  1.0426316  0.67577638       0.6239794  1.00004211  0.58946987
-## 3  2.6031156  1.73164012       2.6607249  2.40290255  3.24097907
-## 4 -0.2271916 -0.05869507      -0.2893964 -0.18812825 -0.31797748
-## 5 -0.6432934 -0.42774132      -0.7090994 -0.61474092 -0.54109949
+## 2  2.6031156  1.73164012       2.6607249  2.40290255  3.24097907
+## 3 -0.6432934 -0.42774132      -0.7090994 -0.61474092 -0.54109949
+## 4  1.0426316  0.67577638       0.6239794  1.00004211  0.58946987
+## 5 -0.2271916 -0.05869507      -0.2893964 -0.18812825 -0.31797748
 ## 
 ## Clustering vector:
-##   [1] 1 1 5 3 1 4 3 4 5 1 5 2 1 2 5 4 5 5 4 1 5 5 5 3 2 4 4 4 4 5 1 1 2 2 5
-##  [36] 1 5 1 5 4 5 4 5 4 5 5 2 4 5 5 4 5 4 4 5 2 4 5 5 3 4 5 1 3 4 5 1 5 5 5
-##  [71] 5 5 5 5 2 5 5 1 2 5 3 4 2 5 1 4 1 4 1 5 1 4 1 5 5 4 1 4 5 5 5 4 5 4 1
-## [106] 1 2 5 5 4 4 2 1 4 4 4 4 4 5 5 1 1 5 3 2 3 4 4 5 2 2 5 4 2 5 5 5 5 5 3
-## [141] 2
+##   [1] 1 1 3 2 1 5 2 5 3 1 3 4 1 4 3 5 3 3 5 1 3 3 3 2 4 5 5 5 5 3 1 1 4 4 3
+##  [36] 1 3 1 3 5 3 5 3 5 3 3 4 5 3 3 5 3 5 5 3 4 5 3 3 2 5 3 1 2 5 3 1 3 3 3
+##  [71] 3 3 3 3 4 3 3 1 4 3 2 5 4 3 1 5 1 5 1 3 1 5 1 3 3 5 1 5 3 3 3 5 3 5 1
+## [106] 1 4 3 3 5 5 4 1 5 5 5 5 5 3 3 1 1 3 2 4 2 5 5 3 4 4 3 5 4 3 3 3 3 3 2
+## [141] 4
 ## 
 ## Within cluster sum of squares by cluster:
-## [1]  16.14354  33.77676 152.52923  13.91044  12.53869
+## [1]  16.14354 152.52923  12.53869  33.77676  13.91044
 ##  (between_SS / total_SS =  67.3 %)
 ## 
 ## Available components:
@@ -907,40 +909,40 @@ kc</code></pre>
 <h3>Plotting k = 5</h3>
 <pre class="r"><code>z1 &lt;- data.frame(z, kc$cluster)
 clusplot(z1, kc$cluster, color=TRUE, shade=F, labels=0, lines=0, main=&#39;k-Means Cluster Analysis k=5&#39;)</code></pre>
-<p><img src="2019-09-04-Toronto_MCI_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="2019-09-04-Toronto_MCI_files/figure-html/clusplot%20k%205-1.png" width="672" /></p>
 </div>
 <div id="fitting-a-model-k-10" class="section level3">
 <h3>Fitting a model, K = 10</h3>
 <pre class="r"><code>kc &lt;- kmeans(z, 10)
 kc</code></pre>
-<pre><code>## K-means clustering with 10 clusters of sizes 25, 12, 24, 15, 14, 1, 9, 19, 8, 14
+<pre><code>## K-means clustering with 10 clusters of sizes 26, 1, 11, 6, 24, 16, 22, 9, 2, 24
 ## 
 ## Cluster means:
-##       Assault Auto Theft Break and Enter     Robbery Theft Over
-## 1   0.0895508 -0.2088871       0.3108087  0.05247316 -0.1011220
-## 2  -0.2246827  0.3297193      -0.3274091 -0.07924468 -0.2249897
-## 3  -0.4197907 -0.4454685      -0.4969791 -0.44214251 -0.4216689
-## 4  -0.7292707 -0.1880378      -0.3055931 -0.71565916 -0.3586513
-## 5  -0.3841048 -0.2530677      -0.8211029 -0.24701716 -0.6220752
-## 6   1.2585733  9.6945198       2.4313261  2.05720435  4.7501907
-## 7   1.3761009  0.7324192       0.4262353  1.52159956  0.2760739
-## 8  -0.7608986 -0.5589355      -0.9146672 -0.78044167 -0.6304953
-## 9   2.7711834  0.7362802       2.6893997  2.44611483  3.0523276
-## 10  0.3923610  0.4831104       0.9829688  0.28225200  0.6973382
+##       Assault Auto Theft Break and Enter     Robbery  Theft Over
+## 1  -0.7275415 -0.5320509      -0.8472560 -0.73720407 -0.58978790
+## 2   1.2585733  9.6945198       2.4313261  2.05720435  4.75019073
+## 3   0.2882257  0.6244522       1.0352809  0.32106329  0.78960483
+## 4   2.3460937  0.9123407       2.5334647  1.40731446  3.30520085
+## 5  -0.3397571 -0.3504884      -0.7034876 -0.27924361 -0.52703273
+## 6  -0.1519249  0.1451163      -0.1542444 -0.01080156 -0.26813871
+## 7   0.2424271 -0.1908809       0.4551731  0.07636603  0.03317452
+## 8   1.3761009  0.7324192       0.4262353  1.52159956  0.27607391
+## 9   4.0464524  0.2080985       3.1572046  5.56251593  2.29370793
+## 10 -0.6173241 -0.2051226      -0.3251779 -0.60376211 -0.36647830
 ## 
 ## Clustering vector:
-##   [1]  1 10  4  9  1  2  9  4  8 10  5  7  1  7  8  2  4  8  2  1  8  3  8
-##  [24]  9 10  4  1  5  1  8  1 10  7  7  3 10  4  1  5  2  8  5  8  5  4  4
-##  [47]  7  3  8  8  1  3  3  3  4 10  2  8  3  9  2  5  1  9  2  3  1  8  4
-##  [70]  4  4  4  3  3  7  8  8 10 10  5  9  5  7  8  1  3  1  1  1  3  1  3
-##  [93]  1  5  3  3  1  2  3  8  4  3  5  2  1 10 10  5  5  1  1 10  1  4  2
-## [116]  1  3  3  5  3  1  1  3  9  7  6  4  2  5 10 10  3  2  7  3  8  3  8
-## [139]  8  9 10
+##   [1]  6  3 10  4  7  6  4 10  1  3  5  8  7  8  1  6 10  1  5  7  1  1  1
+##  [24]  9  3 10  6  5  7  1  7  3  8  8  5  7 10  7  5  6  1 10  1  5 10 10
+##  [47]  8 10  1  1  6 10  5 10 10  3  6  1  5  4  6  5  7  4  6  1  7  1 10
+##  [70] 10 10 10 10  1  8  1  1  3  7  5  9  5  8  1  7  5  7  6  7  5  7  5
+##  [93]  7  5  1 10  7 10 10  1  1  5  5  6  7  7  3  5  5  6  7  3  7 10  6
+## [116]  6  5 10  5  5  7  7  1  4  8  2 10  6  5  3  3  1  6  8  5  1 10  1
+## [139]  1  4  3
 ## 
 ## Within cluster sum of squares by cluster:
-##  [1] 11.311903  3.845815  3.411355  2.741300  1.697859  0.000000 15.813567
-##  [8]  1.881279 76.405991 14.735673
-##  (between_SS / total_SS =  81.2 %)
+##  [1]  3.070321  0.000000 10.783056 32.414426  4.290106  5.424345 12.352458
+##  [8] 15.813567 10.893997  4.728976
+##  (between_SS / total_SS =  85.7 %)
 ## 
 ## Available components:
 ## 
@@ -952,7 +954,7 @@ kc</code></pre>
 <h3>Plotting k = 10</h3>
 <pre class="r"><code>z1 &lt;- data.frame(z, kc$cluster)
 clusplot(z1, kc$cluster, color=TRUE, shade=F, labels=0, lines=0, main=&#39;k-Means Cluster Analysis k=10&#39;)</code></pre>
-<p><img src="2019-09-04-Toronto_MCI_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="2019-09-04-Toronto_MCI_files/figure-html/clusplot%20k%2010-1.png" width="672" /></p>
 </div>
 </div>
 <div id="hierarchical-clustering" class="section level2">
@@ -963,16 +965,16 @@ clusplot(z1, kc$cluster, color=TRUE, shade=F, labels=0, lines=0, main=&#39;k-Mea
 distance &lt;- dist(z2)
 hc &lt;- hclust(distance)</code></pre>
 <pre class="r"><code>plot(hc, labels = groups_wide$Neighbourhood, main=&#39;Cluster Dendrogram&#39;, cex=0.65)</code></pre>
-<p><img src="2019-09-04-Toronto_MCI_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="2019-09-04-Toronto_MCI_files/figure-html/dendrogram%20plot-1.png" width="672" /></p>
 </div>
 <div id="silhouette-plot" class="section level3">
 <h3>Silhouette plot</h3>
 <pre class="r"><code>plot(silhouette(cutree(hc, 5), distance))</code></pre>
-<p><img src="2019-09-04-Toronto_MCI_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="2019-09-04-Toronto_MCI_files/figure-html/silhouette%20k%205-1.png" width="672" /></p>
 <pre class="r"><code>plot(silhouette(cutree(hc, 10), distance))</code></pre>
-<p><img src="2019-09-04-Toronto_MCI_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="2019-09-04-Toronto_MCI_files/figure-html/silhouette%20k%2010-1.png" width="672" /></p>
 <pre class="r"><code>plot(silhouette(cutree(hc, 2), distance))</code></pre>
-<p><img src="2019-09-04-Toronto_MCI_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="2019-09-04-Toronto_MCI_files/figure-html/silhouette%20k%202-1.png" width="672" /></p>
 </div>
 </div>
 <div id="map-of-toronto-crimes-2014-2018" class="section level2">
@@ -996,7 +998,7 @@ my_map &lt;- get_map(location = sbbox, maptype = &quot;roadmap&quot;, scale = 2,
   ylab(&#39;Latitude&#39;) +
   ggtitle(&#39;Location of Major Crime Indicators Toronto 2014-2018&#39;) +
   guides(color=FALSE)</code></pre>
-<p><img src="2019-09-04-Toronto_MCI_files/figure-html/crime%20map-1.png" width="672" /></p>
+<p><img src="2019-09-04-Toronto_MCI_files/figure-html/major%20crimes%20map-1.png" width="672" /></p>
 <div id="location-of-major-crime-indicators" class="section level3">
 <h3>Location of major crime indicators</h3>
 <pre class="r"><code>ggmap(my_map) +
@@ -1007,7 +1009,8 @@ my_map &lt;- get_map(location = sbbox, maptype = &quot;roadmap&quot;, scale = 2,
   ggtitle(&#39;Location of Major Crime Indicators Toronto 2014-2018&#39;) +
   guides(color=FALSE) +
   facet_wrap(~ crimes, nrow = 2)</code></pre>
-<p><img src="2019-09-04-Toronto_MCI_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="2019-09-04-Toronto_MCI_files/figure-html/maps%20one%20per%20major%20crime-1.png" width="672" /></p>
+</div>
 </div>
 </div>
 

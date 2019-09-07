@@ -17,6 +17,8 @@ library(maps)
 library(data.table)
 ```
 
+# Toronto Major Crime Indicators 2014-2018
+
 ## 1. Introduction
 
 Toronto Police made publicly available its data on the __["Toronto Police Service Public Safety Data Portal"](https://data.torontopolice.on.ca/search?tags=MCI)__.
@@ -499,7 +501,7 @@ Based on the plot, we could choose either 5, 8, 9, or 10 clusters (subsequent ru
 
 ### Fitting a model, K = 5
 
-```{r k = 5}
+```{r kmeans k 5}
 kc <- kmeans(z, 5)
 kc
 ```
@@ -518,7 +520,7 @@ Withinss tells us the sum of the square of the distance from each data point to 
 
 ### Plotting k = 5
 
-```{r}
+```{r clusplot k 5}
 z1 <- data.frame(z, kc$cluster)
 clusplot(z1, kc$cluster, color=TRUE, shade=F, labels=0, lines=0, main='k-Means Cluster Analysis k=5')
 ```
@@ -526,14 +528,14 @@ clusplot(z1, kc$cluster, color=TRUE, shade=F, labels=0, lines=0, main='k-Means C
 
 ### Fitting a model, K = 10
 
-```{r k = 10}
+```{r model k 10}
 kc <- kmeans(z, 10)
 kc
 ```
 
 ### Plotting k = 10
 
-```{r}
+```{r clusplot k 10}
 z1 <- data.frame(z, kc$cluster)
 clusplot(z1, kc$cluster, color=TRUE, shade=F, labels=0, lines=0, main='k-Means Cluster Analysis k=10')
 ```
@@ -543,36 +545,36 @@ clusplot(z1, kc$cluster, color=TRUE, shade=F, labels=0, lines=0, main='k-Means C
 
 ### Dendrogram plot
 
-```{r}
+```{r hcluster}
 z2 <- data.frame(z)
 distance <- dist(z2)
 hc <- hclust(distance)
 ```
 
 
-```{r}
+```{r dendrogram plot}
 plot(hc, labels = groups_wide$Neighbourhood, main='Cluster Dendrogram', cex=0.65)
 ```
 
 ### Silhouette plot
 
-```{r}
+```{r silhouette k 5}
 plot(silhouette(cutree(hc, 5), distance))
 ```
 
-```{r}
+```{r silhouette k 10}
 plot(silhouette(cutree(hc, 10), distance))
 ```
 
 
-```{r}
+```{r silhouette k 2}
 plot(silhouette(cutree(hc, 2), distance))
 ```
 
 
 ## Map of Toronto Crimes 2014-2018
 
-```{r crime map}
+```{r major crimes map}
 lat <- toronto$Lat
 lon <- toronto$Long
 crimes <- toronto$MCI
@@ -593,7 +595,7 @@ ggmap(my_map) +
 
 ### Location of major crime indicators
 
-```{r}
+```{r maps one per major crime}
 ggmap(my_map) +
   geom_point(data=to_map, aes(x = lon, y = lat, color = "#27AE60"), 
              size = 0.5, alpha = 0.05) +
