@@ -106,6 +106,10 @@ After running the container, we are now inside the container's shell.
 
 <img src="./assets/java-hadoop-versions-cloudera-container.png">
 
+- Pig version:
+
+<img src="./assets/pig_version.png">
+
 
 
 ## Connecting to Hue web interface
