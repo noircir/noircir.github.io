@@ -10,9 +10,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="" />
 
+<meta name="date" content="2019-09-08" />
 
-<title>2019-09-05-ClouderaOnGCP-2.utf8.md</title>
+<title>Image Processing</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -313,28 +315,161 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">Image Processing</h1>
+<h4 class="date">2019-09-08</h4>
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#read-the-image">Read the image</a></li>
+<li><a href="#data-cleaning">Data cleaning</a></li>
+<li><a href="#plotting">Plotting</a></li>
+<li><a href="#clustering">Clustering</a></li>
+</ul>
+</div>
 
-<p><link rel="stylesheet" href="styles.css" type="text/css"></p>
-<div id="running-cloudera-quickstart-image-on-google-cloud-instance---part-2-getting-hue-to-work" class="section level2">
-<h2>Running Cloudera Quickstart Image on Google Cloud instance - Part 2 : Getting Hue to work</h2>
-<p>Continued from <strong><a href="2019-09-05-ClouderaOnGCP.html">Cloudera Quickstart on Google Cloud Platform - Part 1</a></strong></p>
-<div id="create-an-ssh-tunnel" class="section level3">
-<h3>1. Create an SSH tunnel</h3>
-<p>To access your Hue service via browser, you’ll need to forward port 8777 to your local machine using ssh. ssh flags can be passed via gcloud. On your local terminal (in your /google-cloud-sdk directory), type:</p>
-<pre><code>./bin/gcloud compute --project &quot;my-project-cdh-docker-251102&quot; ssh dryyellowpeas3@instance-cdh --ssh-flag=&quot;-L localhost:8777:0.0.0.0:8777&quot;</code></pre>
-<p><img src="assets/tunnel_to_port_8777.png"></p>
-<p>We are using port 8777 because we mapped this port to the normal TCP port 8888 up when we started the container ( step 8 in Part 1).</p>
-<p>It is also possible to <strong><a href="./Port_Mapping_Container.html">check port mapping on a running container</a></strong>.</p>
+<div id="read-the-image" class="section level2">
+<h2>Read the image</h2>
+<pre class="r"><code>img &lt;- readJPEG(&quot;./assets/abstract1.jpg&quot;)</code></pre>
+<p><img src="assets/abstract1.jpg" /></p>
 </div>
-<div id="open-localhost8777" class="section level3">
-<h3>2. Open localhost:8777</h3>
-<p><img src="assets/hue1.png" style="width:30%"></p>
-<p>Username and password: cloudera/cloudera</p>
-<p><img src="assets/hue2.png" style="width:50%"></p>
+<div id="data-cleaning" class="section level2">
+<h2>Data cleaning</h2>
+<div id="obtain-the-dimension" class="section level4">
+<h4>Obtain the dimension</h4>
+<pre class="r"><code>imgDm &lt;- dim(img)
+imgDm</code></pre>
+<pre><code>## [1] 499 500   3</code></pre>
 </div>
+<div id="assign-rgb-channels-to-data-frame" class="section level4">
+<h4>Assign RGB channels to data frame</h4>
+<p>Extract the necessary information from the image and organize this for our computation:</p>
+<pre class="r"><code>imgRGB &lt;- data.frame(
+  x = rep(1:imgDm[2], each = imgDm[1]),
+  y = rep(imgDm[1]:1, imgDm[2]),
+  R = as.vector(img[,,1]),
+  G = as.vector(img[,,2]),
+  B = as.vector(img[,,3])
+)</code></pre>
+<p>The image is represented by large array of pixels with dimension rows by columns by channels – red, green, and blue or RGB.</p>
+</div>
+</div>
+<div id="plotting" class="section level2">
+<h2>Plotting</h2>
+<pre class="r"><code>ggplot(data = imgRGB, aes(x = x, y = y)) + 
+  geom_point(colour = rgb(imgRGB[c(&quot;R&quot;, &quot;G&quot;, &quot;B&quot;)])) +
+  labs(title = &quot;Original Image&quot;) +
+  theme_bw() +
+  xlab(&quot;x&quot;) +
+  ylab(&quot;y&quot;)</code></pre>
+<p><img src="2019-09-08-image_processing2_files/figure-html/ggplot%20original%20image-1.png" width="672" /></p>
+</div>
+<div id="clustering" class="section level2">
+<h2>Clustering</h2>
+<p>Apply k-Means clustering on the image:</p>
+<ul>
+<li>k = 3</li>
+</ul>
+<pre class="r"><code>kClusters &lt;- 3
+kMeans &lt;- kmeans(imgRGB[, c(&quot;R&quot;, &quot;G&quot;, &quot;B&quot;)], centers = kClusters)
+kColours &lt;- rgb(kMeans$centers[kMeans$cluster,])</code></pre>
+<p>Plot the clustered colors:</p>
+<pre class="r"><code>ggplot(data = imgRGB, aes(x = x, y = y)) + 
+  geom_point(colour = kColours) +
+  labs(title = paste(&quot;k-Means Clustering of&quot;, kClusters, &quot;Colours&quot;)) +
+  xlab(&quot;x&quot;) +
+  ylab(&quot;y&quot;) + 
+  theme_bw()</code></pre>
+<p><img src="2019-09-08-image_processing2_files/figure-html/ggplot%20k%203-1.png" width="672" /></p>
+<ul>
+<li>k = 5</li>
+</ul>
+<pre class="r"><code>kClusters &lt;- 5
+kMeans &lt;- kmeans(imgRGB[, c(&quot;R&quot;, &quot;G&quot;, &quot;B&quot;)], centers = kClusters)
+kColours &lt;- rgb(kMeans$centers[kMeans$cluster,])</code></pre>
+<p>Plot the clustered colors:</p>
+<pre class="r"><code>ggplot(data = imgRGB, aes(x = x, y = y)) + 
+  geom_point(colour = kColours) +
+  labs(title = paste(&quot;k-Means Clustering of&quot;, kClusters, &quot;Colours&quot;)) +
+  xlab(&quot;x&quot;) +
+  ylab(&quot;y&quot;) + 
+  theme_bw()</code></pre>
+<p><img src="2019-09-08-image_processing2_files/figure-html/ggplot%20k%205-1.png" width="672" /></p>
+<ul>
+<li>k = 15</li>
+</ul>
+<pre class="r"><code>kClusters &lt;- 15
+kMeans &lt;- kmeans(imgRGB[, c(&quot;R&quot;, &quot;G&quot;, &quot;B&quot;)], centers = kClusters)
+kColours &lt;- rgb(kMeans$centers[kMeans$cluster,])
+
+kMeans$centers</code></pre>
+<pre><code>##             R           G           B
+## 1  0.85171262 0.420705193 0.840883579
+## 2  0.03650748 0.007057653 0.008381083
+## 3  0.48523695 0.102022801 0.143577285
+## 4  0.06205453 0.486423101 0.374773775
+## 5  0.43130788 0.454526603 0.634083507
+## 6  0.63932560 0.308342530 0.295446482
+## 7  0.83257667 0.429814586 0.420845184
+## 8  0.39370378 0.695911355 0.151747323
+## 9  0.27234216 0.290464939 0.212880366
+## 10 0.20108812 0.058524131 0.066311873
+## 11 0.56472054 0.718690890 0.846321823
+## 12 0.88471296 0.754110235 0.648245570
+## 13 0.96613406 0.060851295 0.686718763
+## 14 0.87257225 0.515647303 0.586999373
+## 15 0.84280333 0.112394940 0.391899547</code></pre>
+<pre class="r"><code>kMeans$withinss</code></pre>
+<pre><code>##  [1] 189.4963 110.9418 258.2450 362.1581 421.7078 316.0305 396.1300
+##  [8] 326.1006 294.1982 223.9011 293.0316 178.0271 187.8326 262.1871
+## [15] 237.4321</code></pre>
+<pre class="r"><code>between_SS &lt;- kMeans$betweenss
+total_SS &lt;- kMeans$totss
+measure_distance &lt;- (between_SS/total_SS)*100
+measure_distance</code></pre>
+<pre><code>## [1] 93.81968</code></pre>
+<p>Plot the clustered colors:</p>
+<pre class="r"><code>ggplot(data = imgRGB, aes(x = x, y = y)) + 
+  geom_point(colour = kColours) +
+  labs(title = paste(&quot;k-Means Clustering of&quot;, kClusters, &quot;Colours&quot;)) +
+  xlab(&quot;x&quot;) +
+  ylab(&quot;y&quot;) + 
+  theme_bw()</code></pre>
+<p><img src="2019-09-08-image_processing2_files/figure-html/ggplot%20k%2015-1.png" width="672" /></p>
+<pre class="r"><code>m &lt;- apply(imgRGB[, c(&quot;R&quot;, &quot;G&quot;, &quot;B&quot;)], 2, mean)
+s &lt;- apply(imgRGB[, c(&quot;R&quot;, &quot;G&quot;, &quot;B&quot;)], 2, sd)
+z &lt;- scale(imgRGB[, c(&quot;R&quot;, &quot;G&quot;, &quot;B&quot;)], m, s)
+head(z)</code></pre>
+<pre><code>##             R          G         B
+## [1,] 1.238862 -0.8855451 0.3893614
+## [2,] 1.172281 -0.9801058 0.3041943
+## [3,] 1.194475 -0.9958659 0.3041943
+## [4,] 1.238862 -0.9328255 0.3467779
+## [5,] 1.227765 -0.9485856 0.3325834
+## [6,] 1.205571 -0.9643457 0.2758053</code></pre>
+<pre class="r"><code>wss &lt;- (nrow(z)-1) * sum(apply(z, 2, var)) # the variance is a squared deviation from the mean 
+wss</code></pre>
+<pre><code>## [1] 748497</code></pre>
+<pre class="r"><code>for (i in 2:20) {
+  wss[i] &lt;- sum(kmeans(z, centers=i)$withinss)
+}</code></pre>
+<pre><code>## Warning: Quick-TRANSfer stage steps exceeded maximum (= 12475000)
+
+## Warning: Quick-TRANSfer stage steps exceeded maximum (= 12475000)</code></pre>
+<pre><code>## Warning: did not converge in 10 iterations
+
+## Warning: did not converge in 10 iterations
+
+## Warning: did not converge in 10 iterations
+
+## Warning: did not converge in 10 iterations</code></pre>
+<pre class="r"><code>wss</code></pre>
+<pre><code>##  [1] 748497.00 290339.23 218405.74 159743.90 136203.35 104691.51  92297.19
+##  [8]  83447.87  74132.06  69513.94  64107.83  57867.32  54917.59  52924.73
+## [15]  49781.01  45705.43  44552.87  41352.87  40374.99  38742.08</code></pre>
+<pre class="r"><code>plot(1:20, wss, type=&#39;b&#39;, xlab=&#39;Number of Clusters&#39;, ylab=&#39;Within groups sum of squares&#39;)</code></pre>
+<p><img src="2019-09-08-image_processing2_files/figure-html/WSS%20plot-1.png" width="672" /></p>
 </div>
 
 

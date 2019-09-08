@@ -1,0 +1,16 @@
+---
+---
+
+<link rel="stylesheet" href="styles.css" type="text/css">
+
+
+<h1>Running Cloudera Quickstart on Google Cloud</h1>
+
+__[Cloudera Quickstart on Google Cloud Platform - Part 1](2019-09-05-ClouderaOnGCP.html)__
+
+__[Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work](2019-09-05-ClouderaOnGCP-2.html)__
+
+
+<h1>Pig</h1>
+
+__[Pig Latin](2019-09-07-PigLatin.html)__
