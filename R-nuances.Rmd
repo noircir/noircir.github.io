@@ -1,0 +1,50 @@
+---
+title: "R nuances"
+author: ""
+date: "2019-09-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aggregate function
+
+- aggregate by number of identical values
+
+```{r cars}
+df <- data.frame(item = c("a", "a", "a", "a", "a", 
+                               "b", "b", "b", 
+                               "c", "c", "c", "c"))
+nr.of.appearances <- aggregate(x = df, 
+                               by = list(unique.values = df$item), # by unique vaues
+                               FUN = length)
+nr.of.appearances
+```
+
+- last day of the month in a series of dates:
+
+```{r last day of month in series}
+dates <- data.frame(date = as.Date("2001-01-01", format = "%Y-%m-%d") + 0:729)
+head(dates)
+last.day <- aggregate(x = dates["date"], 
+                      by = list(month = substr(dates$date, 1, 7)), # by months
+                      FUN = max)
+head(last.day)
+```
+
+Here is an example with a “complex” portfolio risk metric (exposure to different counterparties in different asset classes):
+
+```{r}
+assets <- data.frame(asset.class = c("equity", "equity","equity",
+                                     "option","option","option",
+                                     "bond", "bond"),
+                     rating = c("AAA", "A", "A", "AAA", 
+                                "BB", "BB", "AAA", "A"),
+                     counterparty.a = c(runif(3), rnorm(5)),
+                     counterparty.b = c(runif(3), rnorm(5)),
+                     counterparty.c = c(runif(3), rnorm(5)))
+assets
+```
+

@@ -11,6 +11,8 @@ navbar:
       href: BigData.html
     - text: "Everything else"
       href: EverythingElse.html
+    - text: "R"
+      href: R-nuances.html
     - text: "About"
       href: About.html
   right:
