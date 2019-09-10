@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="" />
+
+<meta name="date" content="2019-09-08" />
+
+<title>Computing k-means clustering in R (USArrests)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h2 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h3 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h4 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h5 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h6 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">noircir-title</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="DataScience.html">Data Science</a>
+</li>
+<li>
+  <a href="CloudComputing2.html">Cloud Computing</a>
+</li>
+<li>
+  <a href="BigData.html">Big Data</a>
+</li>
+<li>
+  <a href="EverythingElse.html">Everything else</a>
+</li>
+<li>
+  <a href="R-nuances.html">R</a>
+</li>
+<li>
+  <a href="About.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="contact.html">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a>
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Computing k-means clustering in R (USArrests)</h1>
+<h4 class="date">2019-09-08</h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#weaknesses-of-k-means-algorithm">Weaknesses of k-means algorithm:</a></li>
+<li><a href="#possible-solutions-ot-these-weaknesses">Possible solutions ot these weaknesses:</a></li>
+<li><a href="#searching-for-optimal-k">Searching for optimal K</a><ul>
+<li><a href="#elbow-method">Elbow method</a></li>
+<li><a href="#silhouette-method">Silhouette method</a></li>
+<li><a href="#gap-statistics-method">Gap Statistics method</a></li>
+<li><a href="#nbclust-function">NbClust() function</a></li>
+</ul></li>
+<li><a href="#interpreting-results-of-kmeansfunction">Interpreting results of kmeans()function</a></li>
+<li><a href="#pca">PCA</a></li>
+</ul>
+</div>
+
+<p>Inspired by <strong><a href="http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/112-pca-principal-component-analysis-essentials/#specification-in-pca">this</a></strong> post.</p>
+<div id="weaknesses-of-k-means-algorithm" class="section level2">
+<h2>Weaknesses of k-means algorithm:</h2>
+<ul>
+<li><p>It assumes prior knowledge of the data and requires the analyst to choose the appropriate number of cluster (k) in advance</p></li>
+<li><p>The final results obtained is <em>sensitive</em> to the initial random selection of cluster centers. Why is it a problem? Because, for every different run of the algorithm on the same dataset, you may choose different set of initial centers. This may lead to different clustering results on different runs of the algorithm.</p></li>
+<li><p>It’s sensitive to outliers.</p></li>
+<li><p>If you rearrange your data, it’s very possible that you’ll get a different solution every time you change the ordering of your data.</p></li>
+</ul>
+</div>
+<div id="possible-solutions-ot-these-weaknesses" class="section level2">
+<h2>Possible solutions ot these weaknesses:</h2>
+<ul>
+<li><p>Solution to issue 1: Compute k-means for a range of k values, for example by varying k between 2 and 10. Then, choose the best k by comparing the clustering results obtained for the different k values.</p></li>
+<li><p>Solution to issue 2: Compute K-means algorithm several times with different initial cluster centers. The run with the lowest total within-cluster sum of square is selected as the final clustering solution.</p></li>
+<li><p>To avoid distortions caused by excessive outliers, it’s possible to use PAM algorithm, which is less sensitive to outliers.</p></li>
+</ul>
+<pre class="r"><code>df &lt;- USArrests
+names(df)</code></pre>
+<pre><code>## [1] &quot;Murder&quot;   &quot;Assault&quot;  &quot;UrbanPop&quot; &quot;Rape&quot;</code></pre>
+<pre class="r"><code>head(df)</code></pre>
+<pre><code>##            Murder Assault UrbanPop Rape
+## Alabama      13.2     236       58 21.2
+## Alaska       10.0     263       48 44.5
+## Arizona       8.1     294       80 31.0
+## Arkansas      8.8     190       50 19.5
+## California    9.0     276       91 40.6
+## Colorado      7.9     204       78 38.7</code></pre>
+<pre class="r"><code>summary(df)</code></pre>
+<pre><code>##      Murder          Assault         UrbanPop          Rape      
+##  Min.   : 0.800   Min.   : 45.0   Min.   :32.00   Min.   : 7.30  
+##  1st Qu.: 4.075   1st Qu.:109.0   1st Qu.:54.50   1st Qu.:15.07  
+##  Median : 7.250   Median :159.0   Median :66.00   Median :20.10  
+##  Mean   : 7.788   Mean   :170.8   Mean   :65.54   Mean   :21.23  
+##  3rd Qu.:11.250   3rd Qu.:249.0   3rd Qu.:77.75   3rd Qu.:26.18  
+##  Max.   :17.400   Max.   :337.0   Max.   :91.00   Max.   :46.00</code></pre>
+<pre class="r"><code>df &lt;- scale(df)
+head(df)</code></pre>
+<pre><code>##                Murder   Assault   UrbanPop         Rape
+## Alabama    1.24256408 0.7828393 -0.5209066 -0.003416473
+## Alaska     0.50786248 1.1068225 -1.2117642  2.484202941
+## Arizona    0.07163341 1.4788032  0.9989801  1.042878388
+## Arkansas   0.23234938 0.2308680 -1.0735927 -0.184916602
+## California 0.27826823 1.2628144  1.7589234  2.067820292
+## Colorado   0.02571456 0.3988593  0.8608085  1.864967207</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(factoextra)</code></pre>
+<pre><code>## Welcome! Related Books: `Practical Guide To Cluster Analysis in R` at https://goo.gl/13EFCZ</code></pre>
+</div>
+<div id="searching-for-optimal-k" class="section level2">
+<h2>Searching for optimal K</h2>
+<div id="elbow-method" class="section level3">
+<h3>Elbow method</h3>
+<pre class="r"><code>#fviz_nbclust(x, FUNcluster, method = c(&quot;silhouette&quot;, &quot;wss&quot;, &quot;gap_stat&quot;))
+
+# Elbow method
+fviz_nbclust(df, kmeans, method = &quot;wss&quot;) +
+    geom_vline(xintercept = 4, linetype = 2)+
+  labs(subtitle = &quot;Elbow method&quot;)</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/fviz_nbclust-1.png" width="672" /></p>
+</div>
+<div id="silhouette-method" class="section level3">
+<h3>Silhouette method</h3>
+<pre class="r"><code># Silhouette method
+fviz_nbclust(df, kmeans, method = &quot;silhouette&quot;)+
+  labs(subtitle = &quot;Silhouette method&quot;)</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/silhouette-1.png" width="672" /></p>
+</div>
+<div id="gap-statistics-method" class="section level3">
+<h3>Gap Statistics method</h3>
+<pre class="r"><code># Gap statistic
+# nboot = 50 to keep the function speedy. 
+# recommended value: nboot= 500 for your analysis.
+# Use verbose = FALSE to hide computing progression.
+set.seed(123)
+fviz_nbclust(df, kmeans, nstart = 25,  method = &quot;gap_stat&quot;, nboot = 70)+
+  labs(subtitle = &quot;Gap statistic method&quot;)</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/gap%20statistics-1.png" width="672" /></p>
+<p>Suggested values of k are 2, 3, and 4.</p>
+</div>
+<div id="nbclust-function" class="section level3">
+<h3>NbClust() function</h3>
+<pre class="r"><code>library(&quot;NbClust&quot;)
+nb &lt;- NbClust(df, distance = &quot;euclidean&quot;, min.nc = 2, max.nc = 10, method = &quot;kmeans&quot;)</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/NbClust-1.png" width="672" /></p>
+<pre><code>## *** : The Hubert index is a graphical method of determining the number of clusters.
+##                 In the plot of Hubert index, we seek a significant knee that corresponds to a 
+##                 significant increase of the value of the measure i.e the significant peak in Hubert
+##                 index second differences plot. 
+## </code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/NbClust-2.png" width="672" /></p>
+<pre><code>## *** : The D index is a graphical method of determining the number of clusters. 
+##                 In the plot of D index, we seek a significant knee (the significant peak in Dindex
+##                 second differences plot) that corresponds to a significant increase of the value of
+##                 the measure. 
+##  
+## ******************************************************************* 
+## * Among all indices:                                                
+## * 11 proposed 2 as the best number of clusters 
+## * 2 proposed 3 as the best number of clusters 
+## * 1 proposed 4 as the best number of clusters 
+## * 1 proposed 5 as the best number of clusters 
+## * 7 proposed 6 as the best number of clusters 
+## * 1 proposed 9 as the best number of clusters 
+## * 1 proposed 10 as the best number of clusters 
+## 
+##                    ***** Conclusion *****                            
+##  
+## * According to the majority rule, the best number of clusters is  2 
+##  
+##  
+## *******************************************************************</code></pre>
+<pre class="r"><code>set.seed(101)</code></pre>
+<pre class="r"><code># Compute k-means with k = 4
+km.res &lt;- kmeans(df, 4, nstart = 25)</code></pre>
+<pre class="r"><code>print(km.res)</code></pre>
+<pre><code>## K-means clustering with 4 clusters of sizes 13, 16, 8, 13
+## 
+## Cluster means:
+##       Murder    Assault   UrbanPop        Rape
+## 1  0.6950701  1.0394414  0.7226370  1.27693964
+## 2 -0.4894375 -0.3826001  0.5758298 -0.26165379
+## 3  1.4118898  0.8743346 -0.8145211  0.01927104
+## 4 -0.9615407 -1.1066010 -0.9301069 -0.96676331
+## 
+## Clustering vector:
+##        Alabama         Alaska        Arizona       Arkansas     California 
+##              3              1              1              3              1 
+##       Colorado    Connecticut       Delaware        Florida        Georgia 
+##              1              2              2              1              3 
+##         Hawaii          Idaho       Illinois        Indiana           Iowa 
+##              2              4              1              2              4 
+##         Kansas       Kentucky      Louisiana          Maine       Maryland 
+##              2              4              3              4              1 
+##  Massachusetts       Michigan      Minnesota    Mississippi       Missouri 
+##              2              1              4              3              1 
+##        Montana       Nebraska         Nevada  New Hampshire     New Jersey 
+##              4              4              1              4              2 
+##     New Mexico       New York North Carolina   North Dakota           Ohio 
+##              1              1              3              4              2 
+##       Oklahoma         Oregon   Pennsylvania   Rhode Island South Carolina 
+##              2              2              2              2              3 
+##   South Dakota      Tennessee          Texas           Utah        Vermont 
+##              4              3              1              2              4 
+##       Virginia     Washington  West Virginia      Wisconsin        Wyoming 
+##              2              2              4              4              2 
+## 
+## Within cluster sum of squares by cluster:
+## [1] 19.922437 16.212213  8.316061 11.952463
+##  (between_SS / total_SS =  71.2 %)
+## 
+## Available components:
+## 
+## [1] &quot;cluster&quot;      &quot;centers&quot;      &quot;totss&quot;        &quot;withinss&quot;    
+## [5] &quot;tot.withinss&quot; &quot;betweenss&quot;    &quot;size&quot;         &quot;iter&quot;        
+## [9] &quot;ifault&quot;</code></pre>
+</div>
+</div>
+<div id="interpreting-results-of-kmeansfunction" class="section level2">
+<h2>Interpreting results of kmeans()function</h2>
+<p>kmeans() function returns a list of components, including:</p>
+<ul>
+<li>cluster: A vector of integers (from 1:k) indicating the cluster to which each point is allocated</li>
+<li>centers: A matrix of cluster centers (cluster means)</li>
+<li>totss: The total sum of squares (TSS), i.e ∑(xi−x¯)2. TSS measures the total variance in the data.</li>
+<li>withinss: Vector of within-cluster sum of squares, one component per cluster</li>
+<li>tot.withinss: Total within-cluster sum of squares, i.e. sum(withinss)</li>
+<li>betweenss: The between-cluster sum of squares, i.e. totss−tot.withinss</li>
+<li>size: The number of observations in each cluster</li>
+</ul>
+<p>These components can be accessed as follows:</p>
+<pre class="r"><code># Cluster number for each of the observations
+head(km.res$cluster, 4)</code></pre>
+<pre><code>##  Alabama   Alaska  Arizona Arkansas 
+##        3        1        1        3</code></pre>
+<pre class="r"><code># Cluster size
+km.res$size</code></pre>
+<pre><code>## [1] 13 16  8 13</code></pre>
+<pre class="r"><code># Cluster means
+km.res$centers</code></pre>
+<pre><code>##       Murder    Assault   UrbanPop        Rape
+## 1  0.6950701  1.0394414  0.7226370  1.27693964
+## 2 -0.4894375 -0.3826001  0.5758298 -0.26165379
+## 3  1.4118898  0.8743346 -0.8145211  0.01927104
+## 4 -0.9615407 -1.1066010 -0.9301069 -0.96676331</code></pre>
+<p>The above cluster centers are not very clear as they are centers of the scaled data.</p>
+<p>It is possible to compute the means of each cluster using the original data:</p>
+<pre class="r"><code>aggregate(USArrests, by=list(cluster=km.res$cluster), mean)</code></pre>
+<pre><code>##   cluster   Murder   Assault UrbanPop     Rape
+## 1       1 10.81538 257.38462 76.00000 33.19231
+## 2       2  5.65625 138.87500 73.87500 18.78125
+## 3       3 13.93750 243.62500 53.75000 21.41250
+## 4       4  3.60000  78.53846 52.07692 12.17692</code></pre>
+<p>Adding new cluster column to the original data:</p>
+<pre class="r"><code>dd &lt;- cbind(USArrests, cluster = km.res$cluster)
+head(dd)</code></pre>
+<pre><code>##            Murder Assault UrbanPop Rape cluster
+## Alabama      13.2     236       58 21.2       3
+## Alaska       10.0     263       48 44.5       1
+## Arizona       8.1     294       80 31.0       1
+## Arkansas      8.8     190       50 19.5       3
+## California    9.0     276       91 40.6       1
+## Colorado      7.9     204       78 38.7       1</code></pre>
+</div>
+<div id="pca" class="section level2">
+<h2>PCA</h2>
+<pre class="r"><code>library(FactoMineR)
+res.pca &lt;- PCA(df, graph=FALSE)
+res.pca</code></pre>
+<pre><code>## **Results for the Principal Component Analysis (PCA)**
+## The analysis was performed on 50 individuals, described by 4 variables
+## *The results are available in the following objects:
+## 
+##    name               description                          
+## 1  &quot;$eig&quot;             &quot;eigenvalues&quot;                        
+## 2  &quot;$var&quot;             &quot;results for the variables&quot;          
+## 3  &quot;$var$coord&quot;       &quot;coord. for the variables&quot;           
+## 4  &quot;$var$cor&quot;         &quot;correlations variables - dimensions&quot;
+## 5  &quot;$var$cos2&quot;        &quot;cos2 for the variables&quot;             
+## 6  &quot;$var$contrib&quot;     &quot;contributions of the variables&quot;     
+## 7  &quot;$ind&quot;             &quot;results for the individuals&quot;        
+## 8  &quot;$ind$coord&quot;       &quot;coord. for the individuals&quot;         
+## 9  &quot;$ind$cos2&quot;        &quot;cos2 for the individuals&quot;           
+## 10 &quot;$ind$contrib&quot;     &quot;contributions of the individuals&quot;   
+## 11 &quot;$call&quot;            &quot;summary statistics&quot;                 
+## 12 &quot;$call$centre&quot;     &quot;mean of the variables&quot;              
+## 13 &quot;$call$ecart.type&quot; &quot;standard error of the variables&quot;    
+## 14 &quot;$call$row.w&quot;      &quot;weights for the individuals&quot;        
+## 15 &quot;$call$col.w&quot;      &quot;weights for the variables&quot;</code></pre>
+<pre class="r"><code>library(&quot;factoextra&quot;)
+eig.val &lt;- get_eigenvalue(res.pca)
+eig.val</code></pre>
+<pre><code>##       eigenvalue variance.percent cumulative.variance.percent
+## Dim.1  2.4802416        62.006039                    62.00604
+## Dim.2  0.9897652        24.744129                    86.75017
+## Dim.3  0.3565632         8.914080                    95.66425
+## Dim.4  0.1734301         4.335752                   100.00000</code></pre>
+<pre class="r"><code>fviz_eig(res.pca, addlabels = TRUE, ylim = c(0, 80))</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/plot%20PCA-1.png" width="672" /></p>
+<p>86.7% of the information is explained by two principal components.</p>
+<pre class="r"><code>var &lt;- get_pca_var(res.pca)
+var</code></pre>
+<pre><code>## Principal Component Analysis Results for variables
+##  ===================================================
+##   Name       Description                                    
+## 1 &quot;$coord&quot;   &quot;Coordinates for the variables&quot;                
+## 2 &quot;$cor&quot;     &quot;Correlations between variables and dimensions&quot;
+## 3 &quot;$cos2&quot;    &quot;Cos2 for the variables&quot;                       
+## 4 &quot;$contrib&quot; &quot;contributions of the variables&quot;</code></pre>
+<pre class="r"><code>head(var$coord)</code></pre>
+<pre><code>##              Dim.1      Dim.2      Dim.3       Dim.4
+## Murder   0.8439764 -0.4160354  0.2037600  0.27037052
+## Assault  0.9184432 -0.1870211  0.1601192 -0.30959159
+## UrbanPop 0.4381168  0.8683282  0.2257242  0.05575330
+## Rape     0.8558394  0.1664602 -0.4883190  0.03707412</code></pre>
+<pre class="r"><code>head(var$cos2)</code></pre>
+<pre><code>##              Dim.1     Dim.2      Dim.3       Dim.4
+## Murder   0.7122962 0.1730854 0.04151814 0.073100217
+## Assault  0.8435380 0.0349769 0.02563817 0.095846950
+## UrbanPop 0.1919463 0.7539938 0.05095143 0.003108430
+## Rape     0.7324611 0.0277090 0.23845544 0.001374491</code></pre>
+<pre class="r"><code>head(var$contrib)</code></pre>
+<pre><code>##              Dim.1     Dim.2     Dim.3     Dim.4
+## Murder   28.718825 17.487524 11.643977 42.149674
+## Assault  34.010315  3.533859  7.190358 55.265468
+## UrbanPop  7.739016 76.179065 14.289594  1.792325
+## Rape     29.531844  2.799553 66.876071  0.792533</code></pre>
+<pre class="r"><code># Coordinates of variables
+head(var$coord, 4)</code></pre>
+<pre><code>##              Dim.1      Dim.2      Dim.3       Dim.4
+## Murder   0.8439764 -0.4160354  0.2037600  0.27037052
+## Assault  0.9184432 -0.1870211  0.1601192 -0.30959159
+## UrbanPop 0.4381168  0.8683282  0.2257242  0.05575330
+## Rape     0.8558394  0.1664602 -0.4883190  0.03707412</code></pre>
+<pre class="r"><code>fviz_pca_var(res.pca, col.var = &quot;black&quot;)</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/variable%20correlation%20plot-1.png" width="672" /></p>
+<pre class="r"><code>library(&quot;corrplot&quot;)</code></pre>
+<pre><code>## corrplot 0.84 loaded</code></pre>
+<pre class="r"><code>corrplot(var$cos2, is.corr=FALSE)</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/corrplot-1.png" width="672" /></p>
+<pre class="r"><code># Total cos2 of variables on Dim.1 and Dim.2
+fviz_cos2(res.pca, choice = &quot;var&quot;, axes = 1:2)</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/dim%201%20and%202-1.png" width="672" /></p>
+<pre class="r"><code># Color by cos2 values: quality on the factor map
+fviz_pca_var(res.pca, col.var = &quot;cos2&quot;,
+             gradient.cols = c(&quot;#00AFBB&quot;, &quot;#E7B800&quot;, &quot;#FC4E07&quot;), 
+             repel = TRUE # Avoid text overlapping
+             )</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/color%20by%20cos2%20plot-1.png" width="672" /></p>
+<pre class="r"><code>head(var$contrib, 4)</code></pre>
+<pre><code>##              Dim.1     Dim.2     Dim.3     Dim.4
+## Murder   28.718825 17.487524 11.643977 42.149674
+## Assault  34.010315  3.533859  7.190358 55.265468
+## UrbanPop  7.739016 76.179065 14.289594  1.792325
+## Rape     29.531844  2.799553 66.876071  0.792533</code></pre>
+<pre class="r"><code>library(&quot;corrplot&quot;)
+corrplot(var$contrib, is.corr=FALSE)   </code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/corrplot%20by%20contrib-1.png" width="672" /></p>
+<pre class="r"><code># Contributions of variables to PC1
+fviz_contrib(res.pca, choice = &quot;var&quot;, axes = 1, top = 4)</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/top%20contributions-1.png" width="672" /></p>
+<pre class="r"><code># Contributions of variables to PC2
+fviz_contrib(res.pca, choice = &quot;var&quot;, axes = 2, top = 4)</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/top%20contributions-2.png" width="672" /></p>
+<pre class="r"><code>fviz_contrib(res.pca, choice = &quot;var&quot;, axes = 1:2, top = 10)</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/total%20contributions-1.png" width="672" /></p>
+<p>The most important contributing variables:</p>
+<pre class="r"><code>fviz_pca_var(res.pca, col.var = &quot;contrib&quot;,
+             gradient.cols = c(&quot;#00AFBB&quot;, &quot;#E7B800&quot;, &quot;#FC4E07&quot;)
+             )</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/most%20important%20contributing%20variables%20plot-1.png" width="672" /></p>
+<p>Color by a custom continuing variable:</p>
+<pre class="r"><code># Create a random continuous variable of length 10
+set.seed(101)
+my.cont.var &lt;- rnorm(4)
+# Color variables by the continuous variable
+fviz_pca_var(res.pca, col.var = my.cont.var,
+             gradient.cols = c(&quot;blue&quot;, &quot;yellow&quot;, &quot;red&quot;),
+             legend.title = &quot;Cont.Var&quot;)</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/Color%20by%20a%20custom%20continuing%20variable-1.png" width="672" /></p>
+<pre class="r"><code>fviz_pca_ind(res.pca,
+             geom.ind = &quot;point&quot;, # show points only (nbut not &quot;text&quot;)
+             #col.ind = res.pca$Species, # color by groups
+             palette = c(&quot;#00AFBB&quot;, &quot;#E7B800&quot;, &quot;#FC4E07&quot;),
+             addEllipses = TRUE, # Concentration ellipses
+             legend.title = &quot;Groups&quot;
+             )</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>fviz_pca_biplot(res.pca, repel = TRUE,
+                col.var = &quot;#2E9FDF&quot;, # Variables color
+                col.ind = &quot;#696969&quot;  # Individuals color
+                )</code></pre>
+<p><img src="2019-09-08-k-means-clustering-USArrests_files/figure-html/biplot-1.png" width="672" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
