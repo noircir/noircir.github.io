@@ -11,25 +11,22 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Using CGP Cluster to run Jupyter Notebook, RStudio, and Cloudera Quickstart
 
-Clusters are usually used for compute-intensive deep learning algorithms. When creating a cluster, CGP automatically installs Hadoop, Spark, Hive, and Pig (their version updates TBD). 
+Clusters are usually used for compute-intensive deep learning algorithms and Big Data. When creating a cluster, CGP automatically installs Hadoop, Spark, Hive, and Pig (their version updates TBD). 
 
-However, the same cluster (since it is a virtual machine) can run other applications and docker images. It is economical (proof).
+However, the same cluster (since it is a virtual machine) can run other applications and docker images. It is economical (proof). 
 
-
-I am going to istall Jupyter Notebook, RStudio, and Cloudera CDH Quickstart docker image. This image has the same Hadoop, Spark, Hive, and Pig, but also, in addition, has HBase and is optimized for Hue interface.
 
 ### Part 1. Creating a cluster on GCP and Installing Jupyter Notebook. 
 
 1. Create a project , then Dataproc -> Create Cluster / changed only zone to northeast-.... and change storage type to SSD
 
-2. Choose correct cluster version: the one with Python3 is  __[Cluster version 1.4](https://cloud.google.com/dataproc/docs/tutorials/python-configuration#image_version_14)__
+2. ATTENTION: Choose a correct cluster version: the one with Python3 is  __[Cluster version 1.4](https://cloud.google.com/dataproc/docs/tutorials/python-configuration#image_version_14)__
 
 3. Choose whether you need Anaconda or Miniconda: 
-  (__[difference betwen Anaconda and Miniconda](http://deeplearning.lipingyang.org/2018/12/23/anaconda-vs-miniconda-vs-virtualenv/)__)
+  (__[a link](http://deeplearning.lipingyang.org/2018/12/23/anaconda-vs-miniconda-vs-virtualenv/)__ to help decide on whether you need Anaconda or Miniconda) 
 
-4 Pre-create a bucket with a name. designate the bucket. The jupyter notebooks will be saved in /bucket/notebooks/jupyter/
+4. Pre-create a bucket with a name. designate the bucket. The jupyter notebooks will be saved in /bucket/notebooks/jupyter/
 
 Create. 
 
@@ -40,13 +37,18 @@ it is also a normal virtual machine, where you can access with SSH:
 ```
 gcloud compute ssh \
     --zone=northamerica-northeast1-c \
-    --project=drycluster \
-    cluster-7676-m
+    --project="drycluster" \
+    "cluster-7676-m"
 ```
 
 you will be local user but on that machine
 
+(A hint for these values: GCP provides these hints in a "view gcloud command" sentence, it just takes a bit of time to figure where it is). In case of Dataproc Cluster, the hints are in Cluster details -> VM instances -> SSH -> "view gcloud command"
+
+image here
+
 Check hadoop version
+(images here)
 spark-shell (image) (-> scala)
 hive 
 no hbase (!)
@@ -78,8 +80,6 @@ gcloud compute ssh \
 ```
 
 to view all these project values, GCP provides hints, just in different places :)
-
-In case of Dataproc Cluster where we are, the hints are in Cluster details -> VM instances -> SSH -> "view gcloud command"
 
 
 The R files are saved in RStudio user (that we created) home directory: /home/abby/
