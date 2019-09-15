@@ -6,7 +6,7 @@ navbar:
     - text: "Data Science"
       href: DataScience.html
     - text: "Cloud Computing"
-      href: CloudComputing2.html
+      href: CloudComputing.html
     - text: "Big Data"
       href: BigData.html
     - text: "Everything else"
