@@ -12,9 +12,9 @@
 
 <meta name="author" content="" />
 
-<meta name="date" content="2019-09-09" />
+<meta name="date" content="2019-09-15" />
 
-<title>R nuances</title>
+<title>How to copy files between local and virtual machines</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -318,70 +318,14 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">R nuances</h1>
-<h4 class="date">2019-09-09</h4>
+<h1 class="title toc-ignore">How to copy files between local and virtual machines</h1>
+<h4 class="date">2019-09-15</h4>
 
 </div>
 
 
-<div id="aggregate-function" class="section level2">
-<h2>Aggregate function</h2>
-<ul>
-<li>aggregate by number of identical values</li>
-</ul>
-<pre class="r"><code>df &lt;- data.frame(item = c(&quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, 
-                               &quot;b&quot;, &quot;b&quot;, &quot;b&quot;, 
-                               &quot;c&quot;, &quot;c&quot;, &quot;c&quot;, &quot;c&quot;))
-nr.of.appearances &lt;- aggregate(x = df, 
-                               by = list(unique.values = df$item), # by unique vaues
-                               FUN = length)
-nr.of.appearances</code></pre>
-<pre><code>##   unique.values item
-## 1             a    5
-## 2             b    3
-## 3             c    4</code></pre>
-<ul>
-<li>last day of the month in a series of dates:</li>
-</ul>
-<pre class="r"><code>dates &lt;- data.frame(date = as.Date(&quot;2001-01-01&quot;, format = &quot;%Y-%m-%d&quot;) + 0:729)
-head(dates)</code></pre>
-<pre><code>##         date
-## 1 2001-01-01
-## 2 2001-01-02
-## 3 2001-01-03
-## 4 2001-01-04
-## 5 2001-01-05
-## 6 2001-01-06</code></pre>
-<pre class="r"><code>last.day &lt;- aggregate(x = dates[&quot;date&quot;], 
-                      by = list(month = substr(dates$date, 1, 7)), # by months
-                      FUN = max)
-head(last.day)</code></pre>
-<pre><code>##     month       date
-## 1 2001-01 2001-01-31
-## 2 2001-02 2001-02-28
-## 3 2001-03 2001-03-31
-## 4 2001-04 2001-04-30
-## 5 2001-05 2001-05-31
-## 6 2001-06 2001-06-30</code></pre>
-<p>Here is an example with a “complex” portfolio risk metric (exposure to different counterparties in different asset classes):</p>
-<pre class="r"><code>assets &lt;- data.frame(asset.class = c(&quot;equity&quot;, &quot;equity&quot;,&quot;equity&quot;,
-                                     &quot;option&quot;,&quot;option&quot;,&quot;option&quot;,
-                                     &quot;bond&quot;, &quot;bond&quot;),
-                     rating = c(&quot;AAA&quot;, &quot;A&quot;, &quot;A&quot;, &quot;AAA&quot;, 
-                                &quot;BB&quot;, &quot;BB&quot;, &quot;AAA&quot;, &quot;A&quot;),
-                     counterparty.a = c(runif(3), rnorm(5)),
-                     counterparty.b = c(runif(3), rnorm(5)),
-                     counterparty.c = c(runif(3), rnorm(5)))
-assets</code></pre>
-<pre><code>##   asset.class rating counterparty.a counterparty.b counterparty.c
-## 1      equity    AAA      0.4886063      0.4130563      0.4805338
-## 2      equity      A      0.8684347      0.8218358      0.7866931
-## 3      equity      A      0.7934987      0.7905503      0.6129620
-## 4      option    AAA     -0.7807173     -0.7734392      1.6690123
-## 5      option     BB      1.7184160     -0.9153274     -0.8808310
-## 6      option     BB     -1.4773238     -1.0565963     -0.2822675
-## 7        bond    AAA     -0.9106641      0.9738735     -0.3879916
-## 8        bond      A     -0.6214434     -2.6816964     -1.5473001</code></pre>
+<div id="how-to-copy-files-between-your-laptopdesktop-and-google-cloud-platform" class="section level2">
+<h2>How to copy files between your laptop/desktop and Google Cloud Platform</h2>
 </div>
 
 

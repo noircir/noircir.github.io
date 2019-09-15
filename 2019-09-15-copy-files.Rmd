@@ -1,0 +1,13 @@
+---
+title: "How to copy files between local and virtual machines"
+author: ""
+date: "2019-09-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## How to copy files between your laptop/desktop and Google Cloud Platform 
+

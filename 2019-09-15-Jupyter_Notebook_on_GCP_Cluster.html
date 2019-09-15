@@ -12,9 +12,9 @@
 
 <meta name="author" content="" />
 
-<meta name="date" content="2019-09-09" />
+<meta name="date" content="2019-09-15" />
 
-<title>R nuances</title>
+<title>Using CGP Cluster to run Jupyter Notebook, RStudio, and Cloudera Quickstart</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -318,70 +318,65 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">R nuances</h1>
-<h4 class="date">2019-09-09</h4>
+<h1 class="title toc-ignore">Using CGP Cluster to run Jupyter Notebook, RStudio, and Cloudera Quickstart</h1>
+<h4 class="date">2019-09-15</h4>
 
 </div>
 
 
-<div id="aggregate-function" class="section level2">
-<h2>Aggregate function</h2>
+<p><link rel="stylesheet" href="styles.css" type="text/css"></p>
+<div id="using-cgp-cluster-to-run-jupyter-notebook-rstudio-and-cloudera-quickstart" class="section level2">
+<h2>Using CGP Cluster to run Jupyter Notebook, RStudio, and Cloudera Quickstart</h2>
+<p>Clusters are usually used for compute-intensive deep learning algorithms. When creating a cluster, CGP automatically installs Hadoop, Spark, Hive, and Pig (their version updates TBD).</p>
+<p>However, the same cluster (since it is a virtual machine) can run other applications and docker images. It is economical (proof).</p>
+<p>I am going to istall Jupyter Notebook, RStudio, and Cloudera CDH Quickstart docker image. This image has the same Hadoop, Spark, Hive, and Pig, but also, in addition, has HBase and is optimized for Hue interface.</p>
+<div id="part-1.-creating-a-cluster-on-gcp-and-installing-jupyter-notebook." class="section level3">
+<h3>Part 1. Creating a cluster on GCP and Installing Jupyter Notebook.</h3>
+<ol style="list-style-type: decimal">
+<li><p>Create a project , then Dataproc -&gt; Create Cluster / changed only zone to northeast-…. and change storage type to SSD</p></li>
+<li><p>Choose correct cluster version: the one with Python3 is <strong><a href="https://cloud.google.com/dataproc/docs/tutorials/python-configuration#image_version_14">Cluster version 1.4</a></strong></p></li>
+<li><p>Choose whether you need Anaconda or Miniconda: (<strong><a href="http://deeplearning.lipingyang.org/2018/12/23/anaconda-vs-miniconda-vs-virtualenv/">difference betwen Anaconda and Miniconda</a></strong>)</p></li>
+</ol>
+<p>4 Pre-create a bucket with a name. designate the bucket. The jupyter notebooks will be saved in /bucket/notebooks/jupyter/</p>
+<p>Create.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Go to web interface, click on Jupyter, and voila.</li>
+</ol>
+<p>it is also a normal virtual machine, where you can access with SSH:</p>
+<pre><code>gcloud compute ssh \
+    --zone=northamerica-northeast1-c \
+    --project=drycluster \
+    cluster-7676-m</code></pre>
+<p>you will be local user but on that machine</p>
+<p>Check hadoop version spark-shell (image) (-&gt; scala) hive no hbase (!) pig version 0.17.0</p>
+</div>
+<div id="install-rstudio-server" class="section level3">
+<h3>Install RStudio server</h3>
+<p><strong><a href="https://cloud.google.com/solutions/running-rstudio-server-on-a-cloud-dataproc-cluster?authuser=1"></a></strong></p>
+<p>image of Debian 9 commands</p>
+<pre><code>$ sudo apt-get install gdebi-core
+$ wget https://download2.rstudio.org/server/debian9/x86_64/rstudio-server-1.2.1335-amd64.deb
+$ sudo gdebi rstudio-server-1.2.1335-amd64.deb</code></pre>
+<p>Add user abby/abby123 (for RStudio)</p>
+<p>issue a gcloud command from your local computer</p>
+<pre><code>gcloud compute ssh \
+    --zone=northamerica-northeast1-c \
+    --project=&quot;drycluster&quot; \
+    &quot;cluster-7676-m&quot; -- \
+    -L 8787:localhost:8787</code></pre>
+<p>to view all these project values, GCP provides hints, just in different places :)</p>
+<p>In case of Dataproc Cluster where we are, the hints are in Cluster details -&gt; VM instances -&gt; SSH -&gt; “view gcloud command”</p>
+<p>The R files are saved in RStudio user (that we created) home directory: /home/abby/</p>
 <ul>
-<li>aggregate by number of identical values</li>
+<li>You can install packages in RStudio the usual way For example, knitr: Install -&gt; CRAN packages window appears, start installation.</li>
 </ul>
-<pre class="r"><code>df &lt;- data.frame(item = c(&quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, 
-                               &quot;b&quot;, &quot;b&quot;, &quot;b&quot;, 
-                               &quot;c&quot;, &quot;c&quot;, &quot;c&quot;, &quot;c&quot;))
-nr.of.appearances &lt;- aggregate(x = df, 
-                               by = list(unique.values = df$item), # by unique vaues
-                               FUN = length)
-nr.of.appearances</code></pre>
-<pre><code>##   unique.values item
-## 1             a    5
-## 2             b    3
-## 3             c    4</code></pre>
-<ul>
-<li>last day of the month in a series of dates:</li>
-</ul>
-<pre class="r"><code>dates &lt;- data.frame(date = as.Date(&quot;2001-01-01&quot;, format = &quot;%Y-%m-%d&quot;) + 0:729)
-head(dates)</code></pre>
-<pre><code>##         date
-## 1 2001-01-01
-## 2 2001-01-02
-## 3 2001-01-03
-## 4 2001-01-04
-## 5 2001-01-05
-## 6 2001-01-06</code></pre>
-<pre class="r"><code>last.day &lt;- aggregate(x = dates[&quot;date&quot;], 
-                      by = list(month = substr(dates$date, 1, 7)), # by months
-                      FUN = max)
-head(last.day)</code></pre>
-<pre><code>##     month       date
-## 1 2001-01 2001-01-31
-## 2 2001-02 2001-02-28
-## 3 2001-03 2001-03-31
-## 4 2001-04 2001-04-30
-## 5 2001-05 2001-05-31
-## 6 2001-06 2001-06-30</code></pre>
-<p>Here is an example with a “complex” portfolio risk metric (exposure to different counterparties in different asset classes):</p>
-<pre class="r"><code>assets &lt;- data.frame(asset.class = c(&quot;equity&quot;, &quot;equity&quot;,&quot;equity&quot;,
-                                     &quot;option&quot;,&quot;option&quot;,&quot;option&quot;,
-                                     &quot;bond&quot;, &quot;bond&quot;),
-                     rating = c(&quot;AAA&quot;, &quot;A&quot;, &quot;A&quot;, &quot;AAA&quot;, 
-                                &quot;BB&quot;, &quot;BB&quot;, &quot;AAA&quot;, &quot;A&quot;),
-                     counterparty.a = c(runif(3), rnorm(5)),
-                     counterparty.b = c(runif(3), rnorm(5)),
-                     counterparty.c = c(runif(3), rnorm(5)))
-assets</code></pre>
-<pre><code>##   asset.class rating counterparty.a counterparty.b counterparty.c
-## 1      equity    AAA      0.4886063      0.4130563      0.4805338
-## 2      equity      A      0.8684347      0.8218358      0.7866931
-## 3      equity      A      0.7934987      0.7905503      0.6129620
-## 4      option    AAA     -0.7807173     -0.7734392      1.6690123
-## 5      option     BB      1.7184160     -0.9153274     -0.8808310
-## 6      option     BB     -1.4773238     -1.0565963     -0.2822675
-## 7        bond    AAA     -0.9106641      0.9738735     -0.3879916
-## 8        bond      A     -0.6214434     -2.6816964     -1.5473001</code></pre>
+</div>
+<div id="installing-cloudera-cdh-quickstart" class="section level3">
+<h3>Installing Cloudera CDH Quickstart</h3>
+<p>Follow the same instructions as</p>
+<p><strong><a href="2019-09-05-ClouderaOnGCP.html">Cloudera Quickstart on Google Cloud Platform - Part 1</a></strong></p>
+<p><strong><a href="2019-09-05-ClouderaOnGCP-2.html">Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work</a></strong></p>
+</div>
 </div>
 
 
