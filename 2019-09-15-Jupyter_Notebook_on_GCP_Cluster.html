@@ -14,7 +14,7 @@
 
 <meta name="date" content="2019-09-15" />
 
-<title>Using CGP Cluster to run Jupyter Notebook, RStudio, and Cloudera Quickstart</title>
+<title>Running Jupyter Notebook, RStudio and Cloudera docker image on CGP cluster</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -318,40 +318,40 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Using CGP Cluster to run Jupyter Notebook, RStudio, and Cloudera Quickstart</h1>
+<h1 class="title toc-ignore">Running Jupyter Notebook, RStudio and Cloudera docker image on CGP cluster</h1>
 <h4 class="date">2019-09-15</h4>
 
 </div>
 
 
 <p><link rel="stylesheet" href="styles.css" type="text/css"></p>
-<p>Clusters are usually used for compute-intensive deep learning algorithms and Big Data. When creating a cluster, CGP automatically installs Hadoop, Spark, Hive, and Pig (their version updates TBD).</p>
-<p>However, the same cluster (since it is a virtual machine) can run other applications and docker images. It is economical (proof).</p>
-<div id="part-1.-creating-a-cluster-on-gcp-and-installing-jupyter-notebook." class="section level3">
-<h3>Part 1. Creating a cluster on GCP and Installing Jupyter Notebook.</h3>
-<ol style="list-style-type: decimal">
+<p>Clusters are usually used for compute-intensive deep learning algorithms and Big Data crunching. When creating a cluster, CGP automatically installs Hadoop, Spark, Hive, and Pig (their version updates TBD).</p>
+<p>However, the same cluster (since it is a virtual machine) can run other applications, like Jupyter Notebook, RStudio, and Docker images. It is economical (proof). In fact, GCP itself has instructions for installing Jupyter Notebook and RStudio on a cluster: (links here)</p>
+<div id="part-1.-create-a-cluster-and-run-jupyter-notebook." class="section level3">
+<h3>Part 1. Create a cluster and run Jupyter Notebook.</h3>
+<ol start="0" style="list-style-type: decimal">
+<li><p>Create a bucket (where all your Jupyter Notebook and RStudio files will be saved). Buckets will exist as long as you have your GCP account. You can delete VMs and create new ones, pointing them to this bucket.</p></li>
 <li><p>Create a project , then Dataproc -&gt; Create Cluster / changed only zone to northeast-…. and change storage type to SSD</p></li>
-<li><p>ATTENTION: Choose a correct cluster version: the one with Python3 is <strong><a href="https://cloud.google.com/dataproc/docs/tutorials/python-configuration#image_version_14">Cluster version 1.4</a></strong></p></li>
-<li><p>Choose whether you need Anaconda or Miniconda: (<strong><a href="http://deeplearning.lipingyang.org/2018/12/23/anaconda-vs-miniconda-vs-virtualenv/">a link</a></strong> to help decide on whether you need Anaconda or Miniconda)</p></li>
-<li><p>Pre-create a bucket with a name. designate the bucket. The jupyter notebooks will be saved in /bucket/notebooks/jupyter/</p></li>
+<li><p><strong>ATTENTION: Choose a correct cluster version:</strong> only <strong><a href="https://cloud.google.com/dataproc/docs/tutorials/python-configuration#image_version_14">Cluster version 1.4</a></strong> has Python 3 pre-installed.</p></li>
+<li><p>Choose whether you need Anaconda or Miniconda: (<strong><a href="http://deeplearning.lipingyang.org/2018/12/23/anaconda-vs-miniconda-vs-virtualenv/">a link</a></strong> to help decide if you need Anaconda or Miniconda)</p></li>
+<li><p>Designate the bucket.</p></li>
 </ol>
-<p>Create.</p>
+<p>The Jupyter notebooks will be saved in /bucket_name/notebooks/jupyter/</p>
 <ol start="5" style="list-style-type: decimal">
-<li>Go to web interface, click on Jupyter, and voila.</li>
+<li><p>Create.</p></li>
+<li><p>Click on your cluster, then “Web Interfaces”, then on Jupyter. The Jupyter Notebook will open in your local web browser.</p></li>
 </ol>
-<p>it is also a normal virtual machine, where you can access with SSH:</p>
-<pre><code>gcloud compute ssh \
-    --zone=northamerica-northeast1-c \
-    --project=&quot;drycluster&quot; \
-    &quot;cluster-7676-m&quot;</code></pre>
-<p>you will be local user but on that machine</p>
-<p>(A hint for these values: GCP provides these hints in a “view gcloud command” sentence, it just takes a bit of time to figure where it is). In case of Dataproc Cluster, the hints are in Cluster details -&gt; VM instances -&gt; SSH -&gt; “view gcloud command”</p>
-<p>image here</p>
+<p><img src="assets/Jupyter_link.png" style="max-width:35%;"></p>
+</div>
+<div id="look-around-at-what-is-already-pre-installed-on-this-cluster" class="section level3">
+<h3>Look around at what is already pre-installed on this cluster</h3>
+<p>You can access your cluster (which is VM) with SSH and look around what is installed.</p>
 <p>Check hadoop version (images here) spark-shell (image) (-&gt; scala) hive no hbase (!) pig version 0.17.0</p>
 </div>
-<div id="install-rstudio-server" class="section level3">
-<h3>Install RStudio server</h3>
-<p><strong><a href="https://cloud.google.com/solutions/running-rstudio-server-on-a-cloud-dataproc-cluster?authuser=1"></a></strong></p>
+<div id="part-2.-install-rstudio-server" class="section level3">
+<h3>Part 2. Install RStudio server</h3>
+<p>Follow GCP instrustions: <strong><a href="https://cloud.google.com/solutions/running-rstudio-server-on-a-cloud-dataproc-cluster?authuser=1">Running RStudio® Server on a Cloud Dataproc Cluster</a></strong></p>
+<p>Here is a recap:</p>
 <p>image of Debian 9 commands</p>
 <pre><code>$ sudo apt-get install gdebi-core
 $ wget https://download2.rstudio.org/server/debian9/x86_64/rstudio-server-1.2.1335-amd64.deb
@@ -368,12 +368,67 @@ $ sudo gdebi rstudio-server-1.2.1335-amd64.deb</code></pre>
 <ul>
 <li>You can install packages in RStudio the usual way For example, knitr: Install -&gt; CRAN packages window appears, start installation.</li>
 </ul>
+<p>Copy RStudio files or folders into the bucket:</p>
+<pre><code>gsutil cp hello_world.Rmd gs://my_bucket</code></pre>
+<p>To download your work files onto your local computer, choose Download on the right of this file in the bucket.</p>
+<p>To finish with the user “abby”, type “exit”, the prompt will revert to your usual cluster’s username. (The second “exit” command will disconnect SSH).</p>
 </div>
-<div id="installing-cloudera-cdh-quickstart" class="section level3">
-<h3>Installing Cloudera CDH Quickstart</h3>
-<p>Follow the same instructions as</p>
+<div id="part-3-optional.-install-cloudera-cdh-quickstart" class="section level3">
+<h3>Part 3 (optional). Install Cloudera CDH Quickstart</h3>
+<p>It is possible to install Cloudera CDH Quickstart docker image just like on any other separate VM instance. Hypothetically, all three (RStudio, Hue, and Jupyter Notebook) could run at the same time.</p>
+<p><img src="assets/running_all_three.png" style="max-width:50%;"></p>
+<p>Follow the same instructions as in</p>
 <p><strong><a href="2019-09-05-ClouderaOnGCP.html">Cloudera Quickstart on Google Cloud Platform - Part 1</a></strong></p>
 <p><strong><a href="2019-09-05-ClouderaOnGCP-2.html">Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work</a></strong></p>
+<p><br></p>
+</div>
+<div id="reminder-stop-your-cluster-every-time-you-finish-working" class="section level2">
+<h2><span style="color:red">REMINDER: STOP YOUR CLUSTER EVERY TIME YOU FINISH WORKING</span></h2>
+<p><br></p>
+<div id="part-4.-to-clarify-ssh-connections" class="section level3">
+<h3>Part 4. To clarify SSH connections</h3>
+<ul>
+<li>If you don’t specify a username during SSH connection, you will end up with your local machine’s username:</li>
+</ul>
+<pre><code>gcloud compute ssh \
+    --zone=northamerica-northeast1-c \
+    --project=&quot;beautiful-cluster&quot; \
+    &quot;my-cluster-m&quot;</code></pre>
+<p>Resulting prompt:</p>
+<p><strong><code>my_own_username_on_my_Mac@my-cluster-m:~$</code></strong></p>
+<ul>
+<li>You can specify your main CGP account name as username:</li>
+</ul>
+<pre><code>./bin/gcloud compute ssh &lt;my_CGP_account_name&gt;@&quot;my-cluster-m&quot; \
+    --zone=northamerica-northeast1-c \
+    --project=&quot;beautiful-cluster&quot;</code></pre>
+<p>Resulting prompt:</p>
+<p><strong><code>my_CGP_account_name@my-cluster-m:~$</code></strong></p>
+<ul>
+<li>You can specify any other username that you have already created (for example, for RStudio):</li>
+</ul>
+<pre><code>./bin/gcloud compute ssh &lt;my_RStudio_username&gt;@&quot;my-cluster-m&quot; \
+    --zone=northamerica-northeast1-c \
+    --project=&quot;beautiful-cluster&quot;</code></pre>
+<p>Resulting prompt:</p>
+<p><strong><code>my_RStudio_username@my-cluster-m:~$</code></strong></p>
+<ul>
+<li>You could save time and create an SSH tunnel at the same time as you are SSH-connecting with your cluster, by adding an SSH flag at the end:
+<ul>
+<li><p>for Hue: <code>--ssh-flag=&quot;-L localhost:8777:0.0.0.0:8777&quot;</code></p></li>
+<li><p>for RStudio: <code>--ssh-flag=&quot;-L localhost:8787:0.0.0.0:8787&quot;</code></p></li>
+</ul></li>
+</ul>
+<p>Example:</p>
+<pre><code>./bin/gcloud compute ssh &lt;my_RStudio_username&gt;@&quot;my-cluster-m&quot; \
+    --zone=northamerica-northeast1-c \
+    --project=&quot;beautiful-cluster&quot; \
+    --ssh-flag=&quot;-L localhost:8777:0.0.0.0:8777&quot;</code></pre>
+<p>After this one command you can open local web browser with <code>localhost:8777</code> or <code>localhost:8787</code> .</p>
+<p>(A hint for these values: GCP provides these hints in a “view gcloud command” sentence, it just takes a bit of time to figure where it is). In case of Dataproc Cluster, the hints are in Cluster details -&gt; VM instances -&gt; SSH -&gt; “view gcloud command”</p>
+<p>image here</p>
+<p>Similar posts: <strong><a href="https://towardsdatascience.com/starting-to-develop-in-pyspark-with-jupyter-installed-in-a-big-data-cluster-8a84e4db27e4">Starting to develop in Spark with Jupyter installed in a Big Data cluster</a></strong></p>
+</div>
 </div>
 
 
