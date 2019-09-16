@@ -32,7 +32,7 @@ However, the same cluster (since it is a virtual machine) can run other applicat
 
 The Jupyter notebooks will be saved in /bucket_name/notebooks/jupyter/
 
-5. Create. 
+5. Click Create. 
 
 6. Click on your cluster, then "Web Interfaces", then on Jupyter. The Jupyter Notebook will open in your local web browser.
 
@@ -40,7 +40,7 @@ The Jupyter notebooks will be saved in /bucket_name/notebooks/jupyter/
 
 ### Look around at what is already pre-installed on this cluster
 
-You can access your cluster (which is VM) with SSH and look around what is installed.
+You can access your cluster (which is a VM) with SSH and look around what is installed.
 
 Check hadoop version
 (images here)
@@ -65,7 +65,7 @@ $ wget https://download2.rstudio.org/server/debian9/x86_64/rstudio-server-1.2.13
 $ sudo gdebi rstudio-server-1.2.1335-amd64.deb
 ```
 
-Add user abby/abby123  (for RStudio)
+Add user "rstudio" with password "rstudio123"  (for RStudio)
 
 issue a gcloud command from your local computer 
 
@@ -80,7 +80,7 @@ gcloud compute ssh \
 to view all these project values, GCP provides hints, just in different places :)
 
 
-The R files are saved in RStudio user (that we created) home directory: /home/abby/
+The R files are saved in RStudio user (that we created) home directory: /home/ruser/
 
 - You can install packages in RStudio the usual way
 For example, knitr: Install -> CRAN packages window appears, start installation.
@@ -92,7 +92,7 @@ gsutil cp hello_world.Rmd gs://my_bucket
 ```
 To download your work files onto your local computer, choose Download on the right of this file in the bucket.
 
-To finish with the user "abby", type "exit", the prompt will revert to your usual cluster's username. (The second "exit" command will disconnect SSH).
+To finish with the user "rstudio", type "exit", the prompt will revert to your usual cluster's username. (The second "exit" command will disconnect SSH connection).
 
 ### Part 3 (optional). Install Cloudera CDH Quickstart 
 
@@ -108,7 +108,7 @@ __[Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work](2
 
 <br>
 
-## <span style="color:red">REMINDER: STOP YOUR CLUSTER EVERY TIME YOU FINISH WORKING</span>
+## <span style="color:red">REMINDER: THERE IS NO OPTION TO STOP A CLUSTER. IT HAS TO BE TERMINATED WHEN YOU ARE DONE.</span>
 
 <br>
 
@@ -127,16 +127,16 @@ Resulting prompt:
 **`my_own_username_on_my_Mac@my-cluster-m:~$`**
 
 
-- You can specify your main CGP account name as username:
+- You can specify your main GCP account name as username:
 
 ```
-./bin/gcloud compute ssh <my_CGP_account_name>@"my-cluster-m" \
+./bin/gcloud compute ssh <my_GCP_account_name>@"my-cluster-m" \
     --zone=northamerica-northeast1-c \
     --project="beautiful-cluster"
 ```
 Resulting prompt:
 
-**`my_CGP_account_name@my-cluster-m:~$`**
+**`my_GCP_account_name@my-cluster-m:~$`**
 
 
 - You can specify any other username that you have already created (for example, for RStudio):

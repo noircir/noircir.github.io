@@ -17,17 +17,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## To set up Jupyter Notebook on the cloud:
 
-1. __[Create your new personal computer](#1)__ on Google Cloud (called VM (Virtual Machine) instance).
-2. __[Login into your VM instance with SSH.](#2)__ Now you are inside your new computer.
-3. __[Install Anaconda distribution](#3)__ in there.
-4. __[Start Jupyter Notebook](#4)__ in there.
-5. __[Create an SSH tunnel](#5)__ between your cloud computer and your local computer.
-6. __[View Jupyter Notebook](#6)__ in your local browser.
-7. __[Upload and download files](#7)__ to and from the cloud computer.
-8. __[Stop](#8)__ the VM instance.
 
 
-#### <a id="1"></a>1. Create your new personal computer on Google Cloud (called Virtual Machine instance).
+#### 1. Create your new personal computer on Google Cloud (called Virtual Machine instance).
 "Google Cloud Platform" is an umbrella term for various computing services. We are interested in Compute Engine service. Follow their __[quickstart](https://cloud.google.com/compute/docs/quickstart-linux)__; here are my settings:
 
 * Instance size: I chose the smallest to start, but you can __[resize](https://cloud.google.com/compute/docs/instances/changing-machine-type-of-stopped-instance)__ at any time.
@@ -41,23 +33,23 @@ knitr::opts_chunk$set(echo = TRUE)
 ![](./assets/allowCloudAPIs.png)
 
 
-#### <a id="2"></a>2. Connect to your VM instance with SSH. Now you are inside your new computer.
+#### 2. Connect to your VM instance with SSH. Now you are inside your new computer.
 
-#### <a id="3"></a>3. Install Anaconda distribution in there.
+#### 3. Install Anaconda.
 
-#### <a id="4"></a>4. Start Jupyter Notebook in there.
+#### 4. Start Jupyter Notebook.
 
-#### <a id="5"></a>5. Create an SSH tunnel between your cloud computer and local computer.
+#### 5. Create an SSH tunnel between your cloud computer and local computer.
 
-#### <a id="6"></a>6. View Jupyter Notebook in your local browser.
+#### 6. View Jupyter Notebook in your local browser.
 
-#### <a id="7"></a>7. Upload and download files to and from the cloud computer.
+#### 7. Upload and download files to and from the cloud computer.
 
-#### <a id="8"></a>8. Stop the VM instance.
+#### 8. Stop the VM instance.
 ![](./assets/stop_VM.png)
 
 
-
+<span style="color:red">REMINDER: STOP THE INSTANCE EVERY TIME YOU FINISH WORKING</span>
 
 
 ### Setting up a Cloud instance
@@ -127,6 +119,6 @@ From the instance to the bucket:
 
 
 
-
+## <span style="color:red">REMINDER: STOP THE INSTANCE EVERY TIME YOU FINISH WORKING</span>
 
 
