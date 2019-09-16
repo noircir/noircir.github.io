@@ -9,8 +9,8 @@ navbar:
       href: CloudComputing2.html
     - text: "Big Data"
       href: BigData.html
-    - text: "Everything else"
-      href: EverythingElse.html
+    - text: "DevOps"
+      href: DevOps.html
     - text: "R"
       href: R.html
     - text: "About"

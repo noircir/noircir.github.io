@@ -6,3 +6,9 @@ output: html_document
 <link rel="stylesheet" href="styles.css" type="text/css">
 
 __[R aggregate function](./2019-09-06-R-aggregate.html)__
+
+__[R colors](chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)__
+
+__[R keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)__
+
+__[The viridis color palettes](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html)__

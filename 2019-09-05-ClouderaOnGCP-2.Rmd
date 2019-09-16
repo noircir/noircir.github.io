@@ -19,7 +19,7 @@ To access your Hue service via browser, you’ll need to forward port 8777 to yo
 
 We are using port 8777 because we mapped this port to the normal TCP port 8888 up when we started the container ( step 8 in Part 1).
 
-It is also possible to __[check port mapping on a running container](./Port_Mapping_Container.html)__.
+It is also possible to __[check port mapping on a running container](./2019-08-27-Port_Mapping_Container.html)__.
 
 
 ### 2. Open localhost:8777
