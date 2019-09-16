@@ -10,9 +10,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="" />
 
+<meta name="date" content="2019-09-16" />
 
-<title>CloudComputing2.utf8.md</title>
+<title>Natural Language Processing</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,19 +318,29 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">Natural Language Processing</h1>
+<h4 class="date">2019-09-16</h4>
 
 </div>
 
 
-<p><link rel="stylesheet" href="styles.css" type="text/css"></p>
-<h1>
-Running Development Environments in the Cloud
-</h1>
-<p><strong><a href="./2019-08-25-Jupyter_Notebook_on_GCloud.html">Running Jupyter Notebook on Google Cloud Platform</a></strong></p>
-<p><strong><a href="2019-09-05-ClouderaOnGCP.html">Cloudera Quickstart on Google Cloud Platform - Part 1</a></strong></p>
-<p><strong><a href="2019-09-05-ClouderaOnGCP-2.html">Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work</a></strong></p>
-<p><strong><a href="2019-09-15-Jupyter_Notebook_on_GCP_Cluster.html">Run everything on CGP cluster: Hadoop, Hive, Spark, but also Jupyter Notebook, RStudio, and Cloudera CDH Quickstart docker image</a></strong></p>
-<p><strong><a href="2019-09-15-copy-files.html">Copy files to and from CGP</a></strong></p>
+<p>Simple Example:</p>
+<ul>
+<li>You have two documents:
+<ul>
+<li>“Blue House”</li>
+<li>“Red House”</li>
+</ul></li>
+<li>Featurize based on word count:
+<ul>
+<li>“Blue House” -&gt; (red,blue,house) -&gt; (0,1,1)</li>
+<li>“Red House” -&gt; (red,blue,house) -&gt; (1,0,1)</li>
+</ul></li>
+</ul>
+<p>We’ve turned the words into vectors, or “bags of words”. We can use cosine similarity on the vectors to determine similarity of the documents themselves:</p>
+<p><img src="assets/NLP_cosine_similarity.png" style="max-width:50%;"></p>
+<p>If we are treating documents as vectors of features, then we can perform mathematical operations on them, like cosine similarity, or other similarity metrics.</p>
+<p>For example, we can improve on Bags of Words by adjusting word counts based on their frequency in the corpus</p>
 
 
 

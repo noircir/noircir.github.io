@@ -14,7 +14,7 @@
 
 <meta name="date" content="2019-09-15" />
 
-<title>Running Jupyter Notebook, RStudio and Cloudera docker image on CGP cluster</title>
+<title>Running Jupyter Notebook and RStudio on CGP cluster</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -290,7 +290,7 @@ $(document).ready(function () {
   <a href="EverythingElse.html">Everything else</a>
 </li>
 <li>
-  <a href="R-nuances.html">R</a>
+  <a href="R.html">R</a>
 </li>
 <li>
   <a href="About.html">About</a>
@@ -304,7 +304,7 @@ $(document).ready(function () {
   </a>
 </li>
 <li>
-  <a>
+  <a href="">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -318,19 +318,19 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Running Jupyter Notebook, RStudio and Cloudera docker image on CGP cluster</h1>
+<h1 class="title toc-ignore">Running Jupyter Notebook and RStudio on CGP cluster</h1>
 <h4 class="date">2019-09-15</h4>
 
 </div>
 
 
 <p><link rel="stylesheet" href="styles.css" type="text/css"></p>
-<p>Clusters are usually used for compute-intensive deep learning algorithms and Big Data crunching. When creating a cluster, CGP automatically installs Hadoop, Spark, Hive, and Pig (their version updates TBD).</p>
-<p>However, the same cluster (since it is a virtual machine) can run other applications, like Jupyter Notebook, RStudio, and Docker images. In fact, GCP itself has instructions for installing Jupyter Notebook and RStudio on a cluster: (links here)</p>
+<p>Clusters are usually used for compute-intensive deep learning algorithms and Big Data crunching. When creating a cluster, CGP automatically installs Hadoop, Spark, Hive, and Pig.</p>
+<p>However, the same cluster (since it is also a virtual machine) can run other applications, like Jupyter Notebook, RStudio, and even Docker images. In fact, GCP itself has instructions for installing Jupyter Notebook and RStudio on a cluster: (links: <strong><a href="https://cloud.google.com/solutions/running-rstudio-server-on-a-cloud-dataproc-cluster?authuser=1">Running RStudio® Server on a Cloud Dataproc Cluster</a></strong>, and <strong><a href="https://cloud.google.com/dataproc/docs/tutorials/jupyter-notebook">Install and run a Jupyter notebook on a Cloud Dataproc cluster</a></strong>)</p>
 <div id="part-1.-create-a-cluster-and-run-jupyter-notebook." class="section level3">
 <h3>Part 1. Create a cluster and run Jupyter Notebook.</h3>
 <ol start="0" style="list-style-type: decimal">
-<li><p>Create a bucket (where you can save Jupyter notebooks and RStudio files). This bucket will exist as long as you have your GCP account.</p></li>
+<li><p>Create a bucket (where you will save Jupyter notebooks and RStudio files). This bucket will be attached to the project and will keep existing for as long as you keep the project around (even if you terminate the cluster inside that project).</p></li>
 <li><p>Create a project , then Dataproc -&gt; Create Cluster / changed only zone to northeast-…. and change storage type to SSD</p></li>
 <li><p><strong>ATTENTION: Choose a correct cluster version:</strong> only <strong><a href="https://cloud.google.com/dataproc/docs/tutorials/python-configuration#image_version_14">Cluster version 1.4</a></strong> has Python 3 pre-installed.</p></li>
 <li><p>Choose whether you need Anaconda or Miniconda: (<strong><a href="http://deeplearning.lipingyang.org/2018/12/23/anaconda-vs-miniconda-vs-virtualenv/">a link</a></strong> to help decide if you need Anaconda or Miniconda)</p></li>
@@ -382,13 +382,14 @@ $ sudo gdebi rstudio-server-1.2.1335-amd64.deb</code></pre>
 <p><strong><a href="2019-09-05-ClouderaOnGCP-2.html">Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work</a></strong></p>
 <p><br></p>
 </div>
-<div id="reminder-there-is-no-option-to-stop-a-cluster.-it-has-to-be-terminated-when-you-are-done." class="section level2">
-<h2><span style="color:red">REMINDER: THERE IS NO OPTION TO STOP A CLUSTER. IT HAS TO BE TERMINATED WHEN YOU ARE DONE.</span></h2>
+<div id="reminder-there-is-no-option-to-stop-a-cluster.-it-has-to-be-terminated-when-you-are-done." class="section level3">
+<h3><span style="color:red">REMINDER: There is no option to stop a cluster. It has to be terminated when you are done.</span></h3>
 <p><br></p>
+</div>
 <div id="part-4.-to-clarify-ssh-connections" class="section level3">
 <h3>Part 4. To clarify SSH connections</h3>
 <ul>
-<li>If you don’t specify a username during SSH connection, you will end up with your local machine’s username:</li>
+<li>If you don’t specify a username during SSH connection, your local machine’s username:</li>
 </ul>
 <pre><code>gcloud compute ssh \
     --zone=northamerica-northeast1-c \
@@ -428,7 +429,6 @@ $ sudo gdebi rstudio-server-1.2.1335-amd64.deb</code></pre>
 <p>(A hint for these values: GCP provides these hints in a “view gcloud command” sentence, it just takes a bit of time to figure where it is). In case of Dataproc Cluster, the hints are in Cluster details -&gt; VM instances -&gt; SSH -&gt; “view gcloud command”</p>
 <p>image here</p>
 <p>Similar posts: <strong><a href="https://towardsdatascience.com/starting-to-develop-in-pyspark-with-jupyter-installed-in-a-big-data-cluster-8a84e4db27e4">Starting to develop in Spark with Jupyter installed in a Big Data cluster</a></strong></p>
-</div>
 </div>
 
 

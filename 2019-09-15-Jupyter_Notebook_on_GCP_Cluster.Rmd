@@ -1,5 +1,5 @@
 ---
-title: "Running Jupyter Notebook, RStudio and Cloudera docker image on CGP cluster"
+title: "Running Jupyter Notebook and RStudio on CGP cluster"
 author: ""
 date: "2019-09-15"
 output: html_document
@@ -12,14 +12,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-Clusters are usually used for compute-intensive deep learning algorithms and Big Data crunching. When creating a cluster, CGP automatically installs Hadoop, Spark, Hive, and Pig (their version updates TBD). 
+Clusters are usually used for compute-intensive deep learning algorithms and Big Data crunching. When creating a cluster, CGP automatically installs Hadoop, Spark, Hive, and Pig. 
 
-However, the same cluster (since it is a virtual machine) can run other applications, like Jupyter Notebook, RStudio, and Docker images. In fact, GCP itself has instructions for installing Jupyter Notebook and RStudio on a cluster: (links here)
+However, the same cluster (since it is also a virtual machine) can run other applications, like Jupyter Notebook, RStudio, and even Docker images. In fact, GCP itself has instructions for installing Jupyter Notebook and RStudio on a cluster: (links: __[Running RStudio® Server on a Cloud Dataproc Cluster](https://cloud.google.com/solutions/running-rstudio-server-on-a-cloud-dataproc-cluster?authuser=1)__, and __[Install and run a Jupyter notebook on a Cloud Dataproc cluster](https://cloud.google.com/dataproc/docs/tutorials/jupyter-notebook)__)
 
 
 ### Part 1. Create a cluster and run Jupyter Notebook. 
 
-0. Create a bucket (where you can save Jupyter notebooks and RStudio files). This bucket will exist as long as you have your GCP account.
+0. Create a bucket (where you will save Jupyter notebooks and RStudio files). This bucket will be attached to the project and will keep existing for as long as you keep the project around (even if you terminate the cluster inside that project).
 
 1. Create a project , then Dataproc -> Create Cluster / changed only zone to northeast-.... and change storage type to SSD
 
@@ -108,13 +108,13 @@ __[Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work](2
 
 <br>
 
-## <span style="color:red">REMINDER: THERE IS NO OPTION TO STOP A CLUSTER. IT HAS TO BE TERMINATED WHEN YOU ARE DONE.</span>
+### <span style="color:red">REMINDER: There is no option to stop a cluster. It has to be terminated when you are done.</span>
 
 <br>
 
 ### Part 4. To clarify SSH connections
 
-- If you don't specify a username during SSH connection, you will end up with your local machine's username:
+- If you don't specify a username during SSH connection, your local machine's username:
 
 ```
 gcloud compute ssh \

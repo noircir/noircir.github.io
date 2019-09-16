@@ -1,0 +1,8 @@
+---
+title: "R language"
+output: html_document
+---
+
+<link rel="stylesheet" href="styles.css" type="text/css">
+
+__[R aggregate function](./2019-09-06-R-aggregate.html)__

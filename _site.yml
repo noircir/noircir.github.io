@@ -12,14 +12,14 @@ navbar:
     - text: "Everything else"
       href: EverythingElse.html
     - text: "R"
-      href: R-nuances.html
+      href: R.html
     - text: "About"
       href: About.html
   right:
     - icon: fa-envelope fa-lg
       href: contact.html
     - icon: fa-github fa-lg
-      href: 
+      href: "https://github.com/noircir"
 output:
   html_document:
     theme: paper
