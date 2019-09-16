@@ -14,12 +14,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Clusters are usually used for compute-intensive deep learning algorithms and Big Data crunching. When creating a cluster, CGP automatically installs Hadoop, Spark, Hive, and Pig (their version updates TBD). 
 
-However, the same cluster (since it is a virtual machine) can run other applications, like Jupyter Notebook, RStudio, and Docker images. It is economical (proof). In fact, GCP itself has instructions for installing Jupyter Notebook and RStudio on a cluster: (links here)
+However, the same cluster (since it is a virtual machine) can run other applications, like Jupyter Notebook, RStudio, and Docker images. In fact, GCP itself has instructions for installing Jupyter Notebook and RStudio on a cluster: (links here)
 
 
 ### Part 1. Create a cluster and run Jupyter Notebook. 
 
-0. Create a bucket (where all your Jupyter Notebook and RStudio files will be saved). Buckets will exist as long as you have your GCP account. You can delete VMs and create new ones, pointing them to this bucket.
+0. Create a bucket (where you can save Jupyter notebooks and RStudio files). This bucket will exist as long as you have your GCP account.
 
 1. Create a project , then Dataproc -> Create Cluster / changed only zone to northeast-.... and change storage type to SSD
 
