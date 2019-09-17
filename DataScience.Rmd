@@ -10,3 +10,5 @@ __[K-means Clustering: Image Processing](./2019-09-08-image_processing2.html)__
 __[K-means Clustering: USArrests](./2019-09-08-k-means-clustering-USArrests.html)__
 
 __[NLP 1](./2019-09-16-NLP.html)__
+
+__[NLP: Twitter mining](./2019-09-16-NLP-Twitter.html)__

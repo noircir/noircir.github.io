@@ -5,6 +5,8 @@ date: "2019-09-16"
 output: html_document
 ---
 
+<link rel="stylesheet" href="styles.css" type="text/css">
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -25,5 +27,16 @@ We've turned the words into vectors, or "bags of words". We can use cosine simil
 
 If we are treating documents as vectors of features, then we can perform mathematical operations on them, like cosine similarity, or other similarity metrics.
 
-For example, we can improve on Bags of Words by adjusting word counts based on their frequency in the corpus
+For example, we can improve on Bags of Words by adjusting word counts based on their frequency in the corpus (the group of all documents). We can use **TF-IDF** (Term Frequency - Inverse Document Frequency).
+
+#### Definitions:
+
+- **Term Frequency** - Importance of the term within that document.
+  - `TF(d,t)` = Number of occurrences of term `t` in document `d`
   
+- **Inverse Document Frequency** - Importance of the term in the corpus.
+  - `IDF(t) = log(D/t)` where
+    - `D` = total number of documents
+    - `t` = number of documents with the term
+  
+<img src="./assets/TF-IDF.png" style="max-width:50%;">

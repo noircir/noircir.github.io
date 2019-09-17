@@ -324,6 +324,7 @@ $(document).ready(function () {
 </div>
 
 
+<p><link rel="stylesheet" href="styles.css" type="text/css"></p>
 <p>Simple Example:</p>
 <ul>
 <li>You have two documents:
@@ -340,7 +341,25 @@ $(document).ready(function () {
 <p>We’ve turned the words into vectors, or “bags of words”. We can use cosine similarity on the vectors to determine similarity of the documents themselves:</p>
 <p><img src="assets/NLP_cosine_similarity.png" style="max-width:50%;"></p>
 <p>If we are treating documents as vectors of features, then we can perform mathematical operations on them, like cosine similarity, or other similarity metrics.</p>
-<p>For example, we can improve on Bags of Words by adjusting word counts based on their frequency in the corpus</p>
+<p>For example, we can improve on Bags of Words by adjusting word counts based on their frequency in the corpus (the group of all documents). We can use <strong>TF-IDF</strong> (Term Frequency - Inverse Document Frequency).</p>
+<div id="definitions" class="section level4">
+<h4>Definitions:</h4>
+<ul>
+<li><strong>Term Frequency</strong> - Importance of the term within that document.
+<ul>
+<li><code>TF(d,t)</code> = Number of occurrences of term <code>t</code> in document <code>d</code></li>
+</ul></li>
+<li><strong>Inverse Document Frequency</strong> - Importance of the term in the corpus.
+<ul>
+<li><code>IDF(t) = log(D/t)</code> where
+<ul>
+<li><code>D</code> = total number of documents</li>
+<li><code>t</code> = number of documents with the term</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><img src="assets/TF-IDF.png" style="max-width:50%;"></p>
+</div>
 
 
 
