@@ -13,6 +13,6 @@ __[Cloudera Quickstart on Google Cloud Platform - Part 1](2019-09-05-ClouderaOnG
 
 __[Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work](2019-09-05-ClouderaOnGCP-2.html)__
 
-__[Run everything on CGP cluster: Hadoop, Hive, Spark, but also Jupyter Notebook, RStudio, and Cloudera CDH Quickstart docker image](2019-09-15-Jupyter_Notebook_on_GCP_Cluster.html)__
+__[Running Jupyter Notebook and RStudio on CGP cluster (and, optionally, Cloudera CDH Quickstart docker image)](2019-09-15-Jupyter_Notebook_on_GCP_Cluster.html)__
 
 __[Copy files to and from CGP](2019-09-15-copy-files.html)__

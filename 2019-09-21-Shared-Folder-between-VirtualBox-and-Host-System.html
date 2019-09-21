@@ -10,9 +10,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="" />
 
+<meta name="date" content="2019-09-21" />
 
-<title>CloudComputing2.utf8.md</title>
+<title>VirtualBox 6.0: Create a shared folder between VM and host system</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,19 +318,62 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">VirtualBox 6.0: Create a shared folder between VM and host system</h1>
+<h4 class="date">2019-09-21</h4>
 
 </div>
 
 
 <p><link rel="stylesheet" href="styles.css" type="text/css"></p>
-<h1>
-Running Development Environments in the Cloud
-</h1>
-<p><strong><a href="./2019-08-25-Jupyter_Notebook_on_GCloud.html">Running Jupyter Notebook on Google Cloud Platform</a></strong></p>
-<p><strong><a href="2019-09-05-ClouderaOnGCP.html">Cloudera Quickstart on Google Cloud Platform - Part 1</a></strong></p>
-<p><strong><a href="2019-09-05-ClouderaOnGCP-2.html">Cloudera Quickstart on Google Cloud Platform - Part 2: Getting Hue to Work</a></strong></p>
-<p><strong><a href="2019-09-15-Jupyter_Notebook_on_GCP_Cluster.html">Running Jupyter Notebook and RStudio on CGP cluster (and, optionally, Cloudera CDH Quickstart docker image)</a></strong></p>
-<p><strong><a href="2019-09-15-copy-files.html">Copy files to and from CGP</a></strong></p>
+<div id="how-to-share-clipboard-info-between-host-and-vm" class="section level3">
+<h3>How to share clipboard info between host and VM</h3>
+<ul>
+<li>Settings -&gt; General -&gt; Advanced -&gt; change both “Shared Clipboard” and “Drag’n’Drop” to “Bidirectional”, click OK :</li>
+</ul>
+<p><img src="assets/shared_folder_VM.png" style="max-width:80%;"></p>
+<ul>
+<li>Clipboard copy-paste should work: copy a line from the host onto clipboard and paste into VM.</li>
+</ul>
+<p><img src="assets/VM-sharing-clipboard1.png" style="max-width:50%;"> <img src="assets/VM-sharing-clipboard2.png" style="max-width:50%;"></p>
+</div>
+<div id="how-to-create-a-shared-folder" class="section level3">
+<h3>How to create a shared folder</h3>
+<ul>
+<li>On VM: Settings -&gt; General -&gt; Shared Folders -&gt; plus sign:</li>
+</ul>
+<p><img src="assets/VM-sharng-folder1.png" style="max-width:50%;"></p>
+<ul>
+<li>Click on Folder Path:</li>
+</ul>
+<p><img src="assets/VM-sharng-folder2.png" style="max-width:50%;"></p>
+<ul>
+<li>Create a new folder (or choose existing one):</li>
+</ul>
+<p><img src="assets/VM-sharng-folder3.png" style="max-width:50%;"></p>
+<ul>
+<li>Name it “SharedDrive”:</li>
+</ul>
+<p><img src="assets/VM-sharng-folder4.png" style="max-width:50%;"></p>
+<ul>
+<li><p>Click “Select Folder”</p></li>
+<li><p>Click “Auto-mount” and “Make Permanent”:</p></li>
+</ul>
+<p><img src="assets/VM-sharng-folder5.png" style="max-width:50%;"></p>
+<ul>
+<li><p>Click OK.</p></li>
+<li><p>Now you have a line under “Machine Folders” on VM:</p></li>
+</ul>
+<p><img src="assets/VM-sharng-folder6.png" style="max-width:50%;"></p>
+<ul>
+<li><p>Click OK.</p></li>
+<li><p>On the host system, create a file “File1” in the SharedDrive folder:</p></li>
+</ul>
+<p><img src="assets/VM-sharng-folder7.png" style="max-width:50%;"></p>
+<ul>
+<li>On VM, create a directory on desktop and mount SharedDrive on it:</li>
+</ul>
+<p><img src="assets/VM-sharng-folder8.png" style="max-width:80%;"></p>
+</div>
 
 
 

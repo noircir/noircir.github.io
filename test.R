@@ -50,7 +50,7 @@ plt +
 
 plt +
   geom_smooth(method="lm", aes(fill=cyl)) +
-  geom_smooth(method="loess", color="black", se=FALSE) +
+  geom_smooth(method="loess", color="black", se=FALSE)
   
 ## faceting
 plt <-
