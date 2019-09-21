@@ -372,6 +372,10 @@ $(document).ready(function () {
 <ul>
 <li>On VM, create a directory on Desktop and mount SharedDrive on it:</li>
 </ul>
+<pre><code>sudo mkdir ~/Desktop/windowsshare
+sudo mount -t vboxsf SharedDrive ~/Desktop/windowsshare/
+cd ~/Desktop/windowsshare
+ls -l</code></pre>
 <p><img src="assets/VM-sharng-folder8.png" style="max-width:80%;"></p>
 </div>
 

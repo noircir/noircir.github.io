@@ -61,6 +61,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 - On VM, create a directory on Desktop and mount SharedDrive on it:
 
+```
+sudo mkdir ~/Desktop/windowsshare
+sudo mount -t vboxsf SharedDrive ~/Desktop/windowsshare/
+cd ~/Desktop/windowsshare
+ls -l
+```
+
 <img src="./assets/VM-sharng-folder8.png" style="max-width:80%;">
 
 
