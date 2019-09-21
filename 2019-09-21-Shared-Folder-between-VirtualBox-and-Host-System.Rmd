@@ -18,48 +18,48 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <img src="./assets/shared_folder_VM.png" style="max-width:80%;">
 
-- Clipboard copy-paste should work: copy a line from the host onto clipboard and paste into VM.
+- Clipboard copy-paste should now work: copy a line from the host onto clipboard and paste it into VM.
 
-<img src="./assets/VM-sharing-clipboard1.png" style="max-width:50%;">
-<img src="./assets/VM-sharing-clipboard2.png" style="max-width:50%;">
+<img src="./assets/VM-sharing-clipboard1.png" style="max-width:60%;">
+<img src="./assets/VM-sharing-clipboard2.png" style="max-width:60%;">
 
 ### How to create a shared folder
 
 - On VM: Settings -> General -> Shared Folders -> plus sign:
 
-<img src="./assets/VM-sharng-folder1.png" style="max-width:50%;">
+<img src="./assets/VM-sharng-folder1.png" style="max-width:60%;">
 
 - Click on Folder Path:
 
-<img src="./assets/VM-sharng-folder2.png" style="max-width:50%;">
+<img src="./assets/VM-sharng-folder2.png" style="max-width:60%;">
 
 - Create a new folder (or choose existing one):
 
-<img src="./assets/VM-sharng-folder3.png" style="max-width:50%;">
+<img src="./assets/VM-sharng-folder3.png" style="max-width:60%;">
 
 - Name it "SharedDrive":
 
-<img src="./assets/VM-sharng-folder4.png" style="max-width:50%;">
+<img src="./assets/VM-sharng-folder4.png" style="max-width:60%;">
 
 - Click "Select Folder"
 
 - Click "Auto-mount" and "Make Permanent":
 
-<img src="./assets/VM-sharng-folder5.png" style="max-width:50%;">
+<img src="./assets/VM-sharng-folder5.png" style="max-width:60%;">
 
 - Click OK.
 
 - Now you have a line under "Machine Folders" on VM:
 
-<img src="./assets/VM-sharng-folder6.png" style="max-width:50%;">
+<img src="./assets/VM-sharng-folder6.png" style="max-width:60%;">
 
 - Click OK.
 
 - On the host system, create a file "File1" in the SharedDrive folder:
 
-<img src="./assets/VM-sharng-folder7.png" style="max-width:50%;">
+<img src="./assets/VM-sharng-folder7.png" style="max-width:60%;">
 
-- On VM, create a directory on desktop and mount SharedDrive on it:
+- On VM, create a directory on Desktop and mount SharedDrive on it:
 
 <img src="./assets/VM-sharng-folder8.png" style="max-width:80%;">
 
