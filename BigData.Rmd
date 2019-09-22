@@ -8,3 +8,7 @@
 ### Pig Latin
 
 __[Pig Latin](2019-09-07-PigLatin.html)__
+
+## Apache Spark and Scala
+
+__[Scala Operations and Useful Functions](https://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.functions$)__
