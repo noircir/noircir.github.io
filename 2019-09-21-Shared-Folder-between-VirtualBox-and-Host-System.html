@@ -14,7 +14,7 @@
 
 <meta name="date" content="2019-09-21" />
 
-<title>VirtualBox 6.0: Create a shared folder between VM and host system</title>
+<title>VirtualBox 6.0: Create a shared folder between VirtualBox VM and a host system</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -318,15 +318,15 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">VirtualBox 6.0: Create a shared folder between VM and host system</h1>
+<h1 class="title toc-ignore">VirtualBox 6.0: Create a shared folder between VirtualBox VM and a host system</h1>
 <h4 class="date">2019-09-21</h4>
 
 </div>
 
 
 <p><link rel="stylesheet" href="styles.css" type="text/css"></p>
-<div id="how-to-share-clipboard-info-between-host-and-vm" class="section level3">
-<h3>How to share clipboard info between host and VM</h3>
+<div id="how-to-share-clipboard-info-between-a-host-and-a-vm" class="section level2">
+<h2>How to share clipboard info between a host and a VM</h2>
 <ul>
 <li>Settings -&gt; General -&gt; Advanced -&gt; change both “Shared Clipboard” and “Drag’n’Drop” to “Bidirectional”, click OK :</li>
 </ul>
@@ -335,7 +335,6 @@ $(document).ready(function () {
 <li>Clipboard copy-paste should now work: copy a line from the host onto clipboard and paste it into VM.</li>
 </ul>
 <p><img src="assets/VM-sharing-clipboard1.png" style="max-width:60%;"> <img src="assets/VM-sharing-clipboard2.png" style="max-width:60%;"></p>
-</div>
 <div id="how-to-create-a-shared-folder" class="section level3">
 <h3>How to create a shared folder</h3>
 <ul>
@@ -377,6 +376,7 @@ sudo mount -t vboxsf SharedDrive ~/Desktop/windowsshare/
 cd ~/Desktop/windowsshare
 ls -l</code></pre>
 <p><img src="assets/VM-sharng-folder8.png" style="max-width:80%;"></p>
+</div>
 </div>
 
 
