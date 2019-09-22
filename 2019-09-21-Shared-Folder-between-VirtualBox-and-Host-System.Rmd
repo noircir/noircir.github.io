@@ -1,5 +1,5 @@
 ---
-title: "VirtualBox 6.0: Create a shared folder between VM and host system"
+title: "VirtualBox 6.0: Create a shared folder between VirtualBox VM and a host system"
 author: ""
 date: "2019-09-21"
 output: html_document
@@ -12,7 +12,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-### How to share clipboard info between host and VM
+## How to share clipboard info between a host and a VM
 
 - Settings -> General -> Advanced -> change both "Shared Clipboard" and "Drag'n'Drop" to "Bidirectional", click OK :
 
