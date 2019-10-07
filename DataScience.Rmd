@@ -13,5 +13,7 @@ __[NLP 1](./2019-09-16-NLP.html)__
 
 __[NLP: Mining Twitter](./2019-09-16-NLP-Twitter.html)__
 
+__[Arules (Association Rules) with book data](./2019-10-06-arules.html)__
+
 
 # Feature Engineering
