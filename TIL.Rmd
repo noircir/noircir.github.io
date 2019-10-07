@@ -1,0 +1,49 @@
+---
+title: "Today I Learned"
+author: ""
+date: ""
+output: html_document
+---
+
+<link rel="stylesheet" href="styles.css" type="text/css">
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### R can read zip files
+
+You can read such files into R without unzipping or downloading the file from the web in advance. Use the gz(), bz(), unz(), or url() commands. For example:
+
+`zz=gzfile('file.csv.gz','rt')`
+
+`dat=read.csv(zz,header=F)`
+
+***
+
+`myFile <- gzfile("DataCulture22.gz", open = "r")`
+
+`splat <- readLines(myFile)`
+
+The object splat is a vector of character strings:
+`is.vector(splat)`
+
+[1] TRUE
+
+And  my headers are there:
+
+`splat[[1]]`
+
+[1] "T Run Seed  IntAct  Change f0 f0T0 f0T1 f0T2 average0 variance0
+relentropy0 f1 f1T0 f1T1 f1T2 average1 variance1 relentropy1 f2 f2T0
+f2T1 f2T2 average2 variance2 relentropy2 f3 f3T0 f3T1 f3T2 average3
+variance3 relentropy3 f4 f4T0 f4T1 f4T2 average4 variance4 relentropy4
+totalEntropy acquaint harmony identical "
+
+You want
+
+`splat <- read.table(gzfile("DataCulture22.gz"), header=T)`
+
+or whatever else you would add for an uncompressed data file
+(open ="r" is the default).
